@@ -15,7 +15,7 @@ export interface Lane {
 const LANE_HEIGHT = 140;
 
 export const LANES: Lane[] = [
-  { id: "actor", label: "ACTOR / ROLE", yCenter: LANE_HEIGHT * 0 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#f4f4f5" },
+  { id: "actor", label: "ACTOR / ROLE", yCenter: LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#f4f4f5" },
   { id: "screen", label: "SCREEN / VIEW", yCenter: LANE_HEIGHT * 1 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#eef2ff" },
   { id: "action", label: "ACTION", yCenter: LANE_HEIGHT * 2 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#ecfeff" },
   { id: "outcome", label: "OUTCOME (State Change)", yCenter: LANE_HEIGHT * 3 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#fff7ed" },
