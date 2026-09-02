@@ -2,7 +2,7 @@
 
 Personal spike proving a [React Flow](https://reactflow.dev)-based CRUD-native event-modeling canvas: Actor/Screen/Action/Outcome/Owned-Data swimlanes with drag-snap-to-lane node placement. React Flow was chosen over tldraw specifically for its MIT license, since the long-term goal is a Version1-internal tool.
 
-The board is populated with PowerGym's actual "Member Registration" story-arc, transcribed verbatim from its eventmodelers.ai board export (2 screens, 2 human command/event slices, 3 system-automation slices, deliberately zero invented field-level data since the source board has none).
+The board is populated from PowerGym's real eventmodelers.ai export via `scripts/import-eventmodelers.mjs`, covering all 18 of PowerGym's story-arcs (149 nodes, 84 edges). A story-arc selector in the UI lets you browse any of them, defaulting to Member Registration. Owned Data is deliberately absent everywhere, since the source board has no field-level data.
 
 This is a throwaway/exploratory spike, not production code. Scope is deliberately narrow (Layer 1 board only; Layer 2 Example Mapping, export, and multiplayer are explicitly deferred).
 
