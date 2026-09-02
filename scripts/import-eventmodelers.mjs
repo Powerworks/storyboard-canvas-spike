@@ -23,8 +23,38 @@ import { basename, join } from "node:path";
 
 const SLICE_RE = /^### Slice: (.+?) \(`([^`]+)`, status: (\S+), type: (\S+)\)$/;
 const ELEMENT_RE = /^\*\*(.+?)\*\* \((command|event|automation\/processor|screen)(?:, id `([^`]+)`)?/;
-const DEP_RE = /^Dependencies: (←|→) (.+?) \((\w+)\)/;
+const DEP_LINE_RE = /^Dependencies: (.+)$/;
+const DEP_SEGMENT_RE = /^(←|→) (.+?) \((\w+)\)$/;
 const SCREEN_CONTEXT_RE = /^_\(from slice: (.+?)\)_$/;
+
+/** A Dependencies line may list multiple comma-separated "(arrow) Name (TYPE)"
+ * segments; parse every segment instead of just the first. */
+function parseDependencySegments(rest) {
+  const deps = [];
+  for (const segment of rest.split(", ")) {
+    const m = segment.trim().match(DEP_SEGMENT_RE);
+    if (m) deps.push({ arrow: m[1], otherName: m[2], type: m[3] });
+  }
+  return deps;
+}
+
+/** Maps a Dependencies line's TYPE annotation (e.g. "COMMAND", "SCREEN") to
+ * the lane a same-labeled node would occupy, so edge resolution can
+ * disambiguate a Screen and an Action/Command that share a label. */
+function depTypeToLane(type) {
+  switch (type) {
+    case "SCREEN":
+      return "screen";
+    case "EVENT":
+      return "outcome";
+    case "COMMAND":
+    case "AUTOMATION":
+    case "PROCESSOR":
+      return "action";
+    default:
+      return null;
+  }
+}
 
 function elementTypeToLane(elementType, sliceType) {
   if (elementType === "screen") return "screen";
@@ -85,18 +115,21 @@ function parseRequirements(text, specId) {
       continue;
     }
 
-    const depMatch = line.match(DEP_RE);
-    if (depMatch && currentElementId) {
-      const [, arrow, otherName] = depMatch;
-      // Dependency target is named, not id-linked in the source text —
+    const depLineMatch = line.match(DEP_LINE_RE);
+    if (depLineMatch && currentElementId) {
+      // Dependency targets are named, not id-linked in the source text —
       // resolved to a node id in a second pass once all specs are parsed
       // (see resolveEdges below), since the referenced element may be a
       // Screen defined only in research.md, parsed separately.
-      edges.push(
-        arrow === "←"
-          ? { source: `NAME:${otherName}`, target: currentElementId, label: "produces" }
-          : { source: currentElementId, target: `NAME:${otherName}`, label: "produces" },
-      );
+      for (const { arrow, otherName, type } of parseDependencySegments(depLineMatch[1])) {
+        const lane = depTypeToLane(type);
+        const namedRef = lane ? `NAME:${otherName}|${lane}` : `NAME:${otherName}`;
+        edges.push(
+          arrow === "←"
+            ? { source: namedRef, target: currentElementId, label: "produces" }
+            : { source: currentElementId, target: namedRef, label: "produces" },
+        );
+      }
     }
   }
 
@@ -138,14 +171,17 @@ function parseScreens(text, specId) {
       continue;
     }
 
-    const depMatch = line.match(DEP_RE);
-    if (depMatch && currentScreenId) {
-      const [, arrow, otherName] = depMatch;
-      edges.push(
-        arrow === "→"
-          ? { source: currentScreenId, target: `NAME:${otherName}`, label: "triggers" }
-          : { source: `NAME:${otherName}`, target: currentScreenId, label: "triggers" },
-      );
+    const depLineMatch = line.match(DEP_LINE_RE);
+    if (depLineMatch && currentScreenId) {
+      for (const { arrow, otherName, type } of parseDependencySegments(depLineMatch[1])) {
+        const lane = depTypeToLane(type);
+        const namedRef = lane ? `NAME:${otherName}|${lane}` : `NAME:${otherName}`;
+        edges.push(
+          arrow === "→"
+            ? { source: currentScreenId, target: namedRef, label: "triggers" }
+            : { source: namedRef, target: currentScreenId, label: "triggers" },
+        );
+      }
     }
   }
 
@@ -157,12 +193,25 @@ function parseScreens(text, specId) {
  * dependencies (a different feature entirely) are left unresolved and
  * dropped with a warning — out of scope for a single-spec import. */
 function resolveEdges(nodes, edges, specId) {
-  const byLabel = new Map(nodes.filter((n) => n.specId === specId).map((n) => [n.label, n.id]));
+  const specNodes = nodes.filter((n) => n.specId === specId);
+  const byLabel = new Map(specNodes.map((n) => [n.label, n.id]));
+  const byLabelAndLane = new Map(specNodes.map((n) => [`${n.label}|${n.laneId}`, n.id]));
+
+  function resolveRef(ref) {
+    if (!ref.startsWith("NAME:")) return ref;
+    const rest = ref.slice(5);
+    const pipeIdx = rest.lastIndexOf("|");
+    if (pipeIdx === -1) return byLabel.get(rest);
+    const label = rest.slice(0, pipeIdx);
+    const lane = rest.slice(pipeIdx + 1);
+    return byLabelAndLane.get(`${label}|${lane}`) ?? byLabel.get(label);
+  }
+
   const resolved = [];
   let dropped = 0;
   for (const e of edges) {
-    const source = e.source.startsWith("NAME:") ? byLabel.get(e.source.slice(5)) : e.source;
-    const target = e.target.startsWith("NAME:") ? byLabel.get(e.target.slice(5)) : e.target;
+    const source = resolveRef(e.source);
+    const target = resolveRef(e.target);
     if (source && target) {
       resolved.push({ id: `e-${source}-${target}`, source, target, label: e.label });
     } else {

@@ -1267,9 +1267,9 @@
       "label": "produces"
     },
     {
-      "id": "e-002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864-002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864",
+      "id": "e-002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864-002c-membership-cancellation:baed9f09-19ea-4f3f-889e-edddd0883b7b",
       "source": "002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864",
-      "target": "002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864",
+      "target": "002c-membership-cancellation:baed9f09-19ea-4f3f-889e-edddd0883b7b",
       "label": "triggers"
     },
     {
@@ -1525,15 +1525,15 @@
       "label": "produces"
     },
     {
-      "id": "e-009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e-009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e",
+      "id": "e-009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e-009a-complaint-resolution:8dcef444-a500-4e52-8baa-9fcc4a8ec902",
       "source": "009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e",
-      "target": "009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e",
+      "target": "009a-complaint-resolution:8dcef444-a500-4e52-8baa-9fcc4a8ec902",
       "label": "triggers"
     },
     {
-      "id": "e-009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543-009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543",
+      "id": "e-009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543-009a-complaint-resolution:35e29e92-e6a4-4f30-9ccc-722d2a9b1b3b",
       "source": "009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543",
-      "target": "009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543",
+      "target": "009a-complaint-resolution:35e29e92-e6a4-4f30-9ccc-722d2a9b1b3b",
       "label": "triggers"
     },
     {
