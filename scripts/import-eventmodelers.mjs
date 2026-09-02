@@ -46,6 +46,8 @@ function parseRequirements(text, specId) {
   const nodes = [];
   /** @type {ImportedEdge[]} */
   const edges = [];
+  /** @type {Map<string, string>} */
+  const sliceIdsByName = new Map();
   const lines = text.split("\n");
 
   let currentSlice = null;
@@ -62,6 +64,7 @@ function parseRequirements(text, specId) {
     const sliceMatch = line.match(SLICE_RE);
     if (sliceMatch) {
       currentSlice = { name: sliceMatch[1], id: sliceMatch[2], status: sliceMatch[3], type: sliceMatch[4] };
+      sliceIdsByName.set(currentSlice.name, currentSlice.id);
       continue;
     }
 
@@ -109,11 +112,11 @@ function parseRequirements(text, specId) {
     }
   }
 
-  return { nodes, edges };
+  return { nodes, edges, sliceIdsByName };
 }
 
 /** Parse research.md's UI Reference section for Screen elements + their Dependencies. */
-function parseScreens(text, specId) {
+function parseScreens(text, specId, sliceIdsByName) {
   /** @type {ImportedNode[]} */
   const nodes = [];
   /** @type {ImportedEdge[]} */
@@ -142,7 +145,8 @@ function parseScreens(text, specId) {
       const [, name, , elId] = elMatch;
       currentScreenId = elId ? `${specId}:${elId}` : null;
       if (currentScreenId) {
-        nodes.push({ id: currentScreenId, label: name, laneId: "screen", sliceId: currentSliceName ?? "", sliceType: "SCREEN", specId });
+        const sliceId = currentSliceName ? (sliceIdsByName.get(currentSliceName) ?? currentSliceName) : "";
+        nodes.push({ id: currentScreenId, label: name, laneId: "screen", sliceId, sliceType: "SCREEN", specId });
       }
       continue;
     }
@@ -234,7 +238,7 @@ function importSpec(specDir) {
   const resText = existsSync(resPath) ? readFileSync(resPath, "utf-8") : "";
 
   const req = parseRequirements(reqText, specId);
-  const scr = parseScreens(resText, specId);
+  const scr = parseScreens(resText, specId, req.sliceIdsByName);
 
   const allNodes = [...req.nodes, ...scr.nodes];
   const explicitEdges = resolveEdges(allNodes, [...req.edges, ...scr.edges], specId);
