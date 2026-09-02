@@ -145,7 +145,14 @@ function parseScreens(text, specId, sliceIdsByName) {
       const [, name, , elId] = elMatch;
       currentScreenId = elId ? `${specId}:${elId}` : null;
       if (currentScreenId) {
-        const sliceId = currentSliceName ? (sliceIdsByName.get(currentSliceName) ?? currentSliceName) : "";
+        let sliceId = "";
+        if (currentSliceName) {
+          sliceId = sliceIdsByName.get(currentSliceName);
+          if (sliceId === undefined) {
+            console.error(`[${specId}] screen "${name}" references unknown slice "${currentSliceName}" — falling back to raw name, timeline column may be wrong`);
+            sliceId = currentSliceName;
+          }
+        }
         nodes.push({ id: currentScreenId, label: name, laneId: "screen", sliceId, sliceType: "SCREEN", specId });
       }
       continue;
