@@ -124,10 +124,11 @@ function parseRequirements(text, specId) {
       for (const { arrow, otherName, type } of parseDependencySegments(depLineMatch[1])) {
         const lane = depTypeToLane(type);
         const namedRef = lane ? `NAME:${otherName}|${lane}` : `NAME:${otherName}`;
+        const label = type === "SCREEN" ? "triggers" : "produces";
         edges.push(
           arrow === "←"
-            ? { source: namedRef, target: currentElementId, label: "produces" }
-            : { source: currentElementId, target: namedRef, label: "produces" },
+            ? { source: namedRef, target: currentElementId, label }
+            : { source: currentElementId, target: namedRef, label },
         );
       }
     }

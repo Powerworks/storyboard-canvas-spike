@@ -1198,13 +1198,13 @@
       "id": "e-002a-member-registration:6a3ff23a-ca98-4c13-995e-c7d5f0b020b3-002a-member-registration:528d2998-c62f-4b7e-9f21-b40d3635a846",
       "source": "002a-member-registration:6a3ff23a-ca98-4c13-995e-c7d5f0b020b3",
       "target": "002a-member-registration:528d2998-c62f-4b7e-9f21-b40d3635a846",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-002a-member-registration:edacc279-c7d9-40f5-a16c-5c9abbaa383b-002a-member-registration:4f31c2ca-a35b-47fb-962a-a799c56a4fbe",
       "source": "002a-member-registration:edacc279-c7d9-40f5-a16c-5c9abbaa383b",
       "target": "002a-member-registration:4f31c2ca-a35b-47fb-962a-a799c56a4fbe",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-002a-member-registration:528d2998-c62f-4b7e-9f21-b40d3635a846-002a-member-registration:ab4f9537-81c9-421f-ae4c-82ec67e5d16d",
@@ -1240,7 +1240,7 @@
       "id": "e-002b-membership-renewal:a32ab09f-3c50-47aa-abb8-4228305e6a6b-002b-membership-renewal:9e893426-9919-4f6b-bf53-2747ea444c63",
       "source": "002b-membership-renewal:a32ab09f-3c50-47aa-abb8-4228305e6a6b",
       "target": "002b-membership-renewal:9e893426-9919-4f6b-bf53-2747ea444c63",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-002b-membership-renewal:9e893426-9919-4f6b-bf53-2747ea444c63-002b-membership-renewal:5bdf02ac-a4b1-412a-9373-633d13b737ba",
@@ -1258,12 +1258,6 @@
       "id": "e-002b-membership-renewal:ca4f02f8-8c2f-4ecb-a4c4-679996f93361-002b-membership-renewal:8ee9b29e-3108-4395-89e0-3267c1b4fd70",
       "source": "002b-membership-renewal:ca4f02f8-8c2f-4ecb-a4c4-679996f93361",
       "target": "002b-membership-renewal:8ee9b29e-3108-4395-89e0-3267c1b4fd70",
-      "label": "produces"
-    },
-    {
-      "id": "e-002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864-002c-membership-cancellation:baed9f09-19ea-4f3f-889e-edddd0883b7b",
-      "source": "002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864",
-      "target": "002c-membership-cancellation:baed9f09-19ea-4f3f-889e-edddd0883b7b",
       "label": "produces"
     },
     {
@@ -1300,7 +1294,7 @@
       "id": "e-003a-reserve-class-seat:2826c033-7f57-456e-bdc8-d9ba5ea9cf7e-003a-reserve-class-seat:2b342672-9c50-459f-a525-ddbce2828133",
       "source": "003a-reserve-class-seat:2826c033-7f57-456e-bdc8-d9ba5ea9cf7e",
       "target": "003a-reserve-class-seat:2b342672-9c50-459f-a525-ddbce2828133",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-003a-reserve-class-seat:2b342672-9c50-459f-a525-ddbce2828133-003a-reserve-class-seat:4c6c899f-c85f-40a9-a8b3-fec31e9cc716",
@@ -1336,7 +1330,7 @@
       "id": "e-003b-cancel-class-booking:058f220a-1fb7-48ab-8d38-7c532d283e93-003b-cancel-class-booking:4ce8343c-2ebb-4bcf-8b9d-f815d132bae5",
       "source": "003b-cancel-class-booking:058f220a-1fb7-48ab-8d38-7c532d283e93",
       "target": "003b-cancel-class-booking:4ce8343c-2ebb-4bcf-8b9d-f815d132bae5",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-003b-cancel-class-booking:4ce8343c-2ebb-4bcf-8b9d-f815d132bae5-003b-cancel-class-booking:b621261c-deec-4434-b290-eac31fd055e7",
@@ -1354,7 +1348,7 @@
       "id": "e-004-scheduling:d6fc4e96-b906-4933-9cd0-be73fd53d92d-004-scheduling:ebf129d4-ca66-453b-bbf2-080782cdb09e",
       "source": "004-scheduling:d6fc4e96-b906-4933-9cd0-be73fd53d92d",
       "target": "004-scheduling:ebf129d4-ca66-453b-bbf2-080782cdb09e",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-004-scheduling:ebf129d4-ca66-453b-bbf2-080782cdb09e-004-scheduling:f59c7dc6-39db-40e9-9d44-63bb36c3957b",
@@ -1372,7 +1366,7 @@
       "id": "e-005a-sale-driven-reorder:b5232aee-3f06-4b2e-8b7c-35a54cfeb6b4-005a-sale-driven-reorder:5a26f5da-86bb-46bc-ba57-2bd5223e2f3b",
       "source": "005a-sale-driven-reorder:b5232aee-3f06-4b2e-8b7c-35a54cfeb6b4",
       "target": "005a-sale-driven-reorder:5a26f5da-86bb-46bc-ba57-2bd5223e2f3b",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-005a-sale-driven-reorder:5a26f5da-86bb-46bc-ba57-2bd5223e2f3b-005a-sale-driven-reorder:9f7f72f3-a156-4f4f-81cc-1050ab5f5768",
@@ -1408,7 +1402,7 @@
       "id": "e-005b-stock-receiving:52cceb88-6f48-4af8-8fe0-a3af4458cb73-005b-stock-receiving:d0107c03-beac-49c8-85c7-9b5ef713646e",
       "source": "005b-stock-receiving:52cceb88-6f48-4af8-8fe0-a3af4458cb73",
       "target": "005b-stock-receiving:d0107c03-beac-49c8-85c7-9b5ef713646e",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-005b-stock-receiving:d0107c03-beac-49c8-85c7-9b5ef713646e-005b-stock-receiving:c83f9d31-9b41-49ef-8bbb-ba20b22d22ee",
@@ -1426,13 +1420,13 @@
       "id": "e-006-staffing:6aebccdd-a536-4501-af6d-81fe804c25af-006-staffing:035e548f-89cd-43c6-bdff-bb698466576f",
       "source": "006-staffing:6aebccdd-a536-4501-af6d-81fe804c25af",
       "target": "006-staffing:035e548f-89cd-43c6-bdff-bb698466576f",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-006-staffing:91df3104-654e-4527-9f0f-ab821e22986e-006-staffing:f9b38278-89e5-4762-b873-21c9fa9b2977",
       "source": "006-staffing:91df3104-654e-4527-9f0f-ab821e22986e",
       "target": "006-staffing:f9b38278-89e5-4762-b873-21c9fa9b2977",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-006-staffing:fae3deb2-0e3d-4456-af7b-d5eee7e3cbc5-006-staffing:5523e160-1b9f-41d9-a29f-23680d3fff82",
@@ -1474,7 +1468,7 @@
       "id": "e-007-accounting:d8eef58f-6859-4282-8063-88ad6b10e968-007-accounting:7ff9b686-fb08-4920-9a64-696e1c369813",
       "source": "007-accounting:d8eef58f-6859-4282-8063-88ad6b10e968",
       "target": "007-accounting:7ff9b686-fb08-4920-9a64-696e1c369813",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-007-accounting:05a16ef8-75df-4461-b938-4d6494a3a6b9-007-accounting:f170e61e-2806-412d-a5ac-6a192e6a4e46",
@@ -1498,7 +1492,7 @@
       "id": "e-008-reporting:747e60c8-7c68-47ce-bf36-816296ab241c-008-reporting:6e3208f1-1c0e-4401-a44b-323df1c25e47",
       "source": "008-reporting:747e60c8-7c68-47ce-bf36-816296ab241c",
       "target": "008-reporting:6e3208f1-1c0e-4401-a44b-323df1c25e47",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-008-reporting:6e3208f1-1c0e-4401-a44b-323df1c25e47-008-reporting:e048845e-dff2-4729-acdc-52f9d3b8e42d",
@@ -1510,18 +1504,6 @@
       "id": "e-008-reporting:27e52f5e-266f-4372-8d45-a404fe7598f3-008-reporting:ff382399-6f9c-4727-95cd-37ae2f4be401",
       "source": "008-reporting:27e52f5e-266f-4372-8d45-a404fe7598f3",
       "target": "008-reporting:ff382399-6f9c-4727-95cd-37ae2f4be401",
-      "label": "produces"
-    },
-    {
-      "id": "e-009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e-009a-complaint-resolution:8dcef444-a500-4e52-8baa-9fcc4a8ec902",
-      "source": "009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e",
-      "target": "009a-complaint-resolution:8dcef444-a500-4e52-8baa-9fcc4a8ec902",
-      "label": "produces"
-    },
-    {
-      "id": "e-009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543-009a-complaint-resolution:35e29e92-e6a4-4f30-9ccc-722d2a9b1b3b",
-      "source": "009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543",
-      "target": "009a-complaint-resolution:35e29e92-e6a4-4f30-9ccc-722d2a9b1b3b",
       "label": "produces"
     },
     {
@@ -1594,7 +1576,7 @@
       "id": "e-010b-equipment-servicing:e4058229-e272-444b-9933-6c546cfad263-010b-equipment-servicing:ed48ce58-cb98-45ca-ba67-fa0ac3b9aec2",
       "source": "010b-equipment-servicing:e4058229-e272-444b-9933-6c546cfad263",
       "target": "010b-equipment-servicing:ed48ce58-cb98-45ca-ba67-fa0ac3b9aec2",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-010b-equipment-servicing:84601f6d-4191-4d39-8252-8e612e247451-010b-equipment-servicing:230c6a8f-fb15-4a9c-a95b-a7c5adb14783",
@@ -1624,7 +1606,7 @@
       "id": "e-011a-book-training-session:d85e5d90-a7d0-4b10-8b5b-cbe6106d00e8-011a-book-training-session:8d5fe5be-06c8-458d-b939-02d9e5d30c14",
       "source": "011a-book-training-session:d85e5d90-a7d0-4b10-8b5b-cbe6106d00e8",
       "target": "011a-book-training-session:8d5fe5be-06c8-458d-b939-02d9e5d30c14",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-011a-book-training-session:8d5fe5be-06c8-458d-b939-02d9e5d30c14-011a-book-training-session:b8f40593-529b-44c2-aa79-8a55953870d1",
@@ -1666,7 +1648,7 @@
       "id": "e-011b-complete-training-session:586da29b-2cae-42e8-99c3-2bc32747de2b-011b-complete-training-session:ea587364-2198-4b3f-b9e3-45d9b145badf",
       "source": "011b-complete-training-session:586da29b-2cae-42e8-99c3-2bc32747de2b",
       "target": "011b-complete-training-session:ea587364-2198-4b3f-b9e3-45d9b145badf",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-011b-complete-training-session:ea587364-2198-4b3f-b9e3-45d9b145badf-011b-complete-training-session:8aa7b780-7f15-42c3-865a-cba670a1ee20",
@@ -1690,7 +1672,7 @@
       "id": "e-012-retail-sales:8a967531-07af-4002-9769-4a48390750cc-012-retail-sales:825228b9-d8dc-4f5a-a31c-668edf9dd097",
       "source": "012-retail-sales:8a967531-07af-4002-9769-4a48390750cc",
       "target": "012-retail-sales:825228b9-d8dc-4f5a-a31c-668edf9dd097",
-      "label": "produces"
+      "label": "triggers"
     },
     {
       "id": "e-012-retail-sales:64a4b0fc-e7b4-4bb4-a94e-ec1d58d411fb-012-retail-sales:4373a225-b535-47e7-9255-2a23c4fb384b",
