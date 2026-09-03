@@ -68,7 +68,7 @@ export default function App() {
 
   return (
     <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
-      <div style={{ flex: 1, position: "relative" }}>
+      <div style={{ flex: 1, position: "relative", overflow: "auto", minWidth: 0 }}>
         <LaneBackground width={CANVAS_WIDTH} />
         <ReactFlow
           nodes={nodes}
