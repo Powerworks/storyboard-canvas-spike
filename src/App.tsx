@@ -21,7 +21,7 @@ const CANVAS_WIDTH = 2400;
 const nodeTypes = { storyboard: StoryboardNode };
 const specs = listSpecs();
 
-// Real content loaded from data/powergym-board.json — the output of
+// Real content loaded from src/data/powergym-board.json — the output of
 // scripts/import-eventmodelers.mjs run against all 18 of PowerGym's real
 // eventmodelers.ai story-arcs. Defaults to 002a-member-registration,
 // matching the hand-built reference this import adapter was verified
