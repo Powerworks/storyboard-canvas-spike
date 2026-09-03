@@ -23,38 +23,8 @@ import { basename, join } from "node:path";
 
 const SLICE_RE = /^### Slice: (.+?) \(`([^`]+)`, status: (\S+), type: (\S+)\)$/;
 const ELEMENT_RE = /^\*\*(.+?)\*\* \((command|event|automation\/processor|screen)(?:, id `([^`]+)`)?/;
-const DEP_LINE_RE = /^Dependencies: (.+)$/;
-const DEP_SEGMENT_RE = /^(←|→) (.+?) \((\w+)\)$/;
+const DEP_RE = /^Dependencies: (←|→) (.+?) \((\w+)\)/;
 const SCREEN_CONTEXT_RE = /^_\(from slice: (.+?)\)_$/;
-
-/** A Dependencies line may list multiple comma-separated "(arrow) Name (TYPE)"
- * segments; parse every segment instead of just the first. */
-function parseDependencySegments(rest) {
-  const deps = [];
-  for (const segment of rest.split(", ")) {
-    const m = segment.trim().match(DEP_SEGMENT_RE);
-    if (m) deps.push({ arrow: m[1], otherName: m[2], type: m[3] });
-  }
-  return deps;
-}
-
-/** Maps a Dependencies line's TYPE annotation (e.g. "COMMAND", "SCREEN") to
- * the lane a same-labeled node would occupy, so edge resolution can
- * disambiguate a Screen and an Action/Command that share a label. */
-function depTypeToLane(type) {
-  switch (type) {
-    case "SCREEN":
-      return "screen";
-    case "EVENT":
-      return "outcome";
-    case "COMMAND":
-    case "AUTOMATION":
-    case "PROCESSOR":
-      return "action";
-    default:
-      return null;
-  }
-}
 
 function elementTypeToLane(elementType, sliceType) {
   if (elementType === "screen") return "screen";
@@ -76,6 +46,8 @@ function parseRequirements(text, specId) {
   const nodes = [];
   /** @type {ImportedEdge[]} */
   const edges = [];
+  /** @type {Map<string, string>} */
+  const sliceIdsByName = new Map();
   const lines = text.split("\n");
 
   let currentSlice = null;
@@ -92,6 +64,7 @@ function parseRequirements(text, specId) {
     const sliceMatch = line.match(SLICE_RE);
     if (sliceMatch) {
       currentSlice = { name: sliceMatch[1], id: sliceMatch[2], status: sliceMatch[3], type: sliceMatch[4] };
+      sliceIdsByName.set(currentSlice.name, currentSlice.id);
       continue;
     }
 
@@ -115,30 +88,35 @@ function parseRequirements(text, specId) {
       continue;
     }
 
-    const depLineMatch = line.match(DEP_LINE_RE);
-    if (depLineMatch && currentElementId) {
-      // Dependency targets are named, not id-linked in the source text —
+    const depMatch = line.match(DEP_RE);
+    if (depMatch && currentElementId) {
+      const [, arrow, otherName, otherType] = depMatch;
+      // Label by the referenced element's actual type, matching
+      // research.md's own convention for the same relationship (a Screen
+      // triggers a Command; only a Command produces an Event) — not a
+      // blanket "produces" regardless of what's on the other end.
+      const label = otherType === "SCREEN" ? "triggers" : "produces";
+      // Dependency target is named, not id-linked in the source text —
       // resolved to a node id in a second pass once all specs are parsed
       // (see resolveEdges below), since the referenced element may be a
-      // Screen defined only in research.md, parsed separately.
-      for (const { arrow, otherName, type } of parseDependencySegments(depLineMatch[1])) {
-        const lane = depTypeToLane(type);
-        const namedRef = lane ? `NAME:${otherName}|${lane}` : `NAME:${otherName}`;
-        const label = type === "SCREEN" ? "triggers" : "produces";
-        edges.push(
-          arrow === "←"
-            ? { source: namedRef, target: currentElementId, label }
-            : { source: currentElementId, target: namedRef, label },
-        );
-      }
+      // Screen defined only in research.md, parsed separately. The type
+      // is embedded in the placeholder (NAME:<TYPE>:<name>) because a
+      // Screen and a Command/Automation can share the exact same label
+      // (confirmed in real PowerGym data) — resolving by label alone
+      // would let one silently overwrite the other in the lookup map.
+      edges.push(
+        arrow === "←"
+          ? { source: `NAME:${otherType}:${otherName}`, target: currentElementId, label }
+          : { source: currentElementId, target: `NAME:${otherType}:${otherName}`, label },
+      );
     }
   }
 
-  return { nodes, edges };
+  return { nodes, edges, sliceIdsByName };
 }
 
 /** Parse research.md's UI Reference section for Screen elements + their Dependencies. */
-function parseScreens(text, specId) {
+function parseScreens(text, specId, sliceIdsByName) {
   /** @type {ImportedNode[]} */
   const nodes = [];
   /** @type {ImportedEdge[]} */
@@ -167,52 +145,59 @@ function parseScreens(text, specId) {
       const [, name, , elId] = elMatch;
       currentScreenId = elId ? `${specId}:${elId}` : null;
       if (currentScreenId) {
-        nodes.push({ id: currentScreenId, label: name, laneId: "screen", sliceId: currentSliceName ?? "", sliceType: "SCREEN", specId });
+        let sliceId = "";
+        if (currentSliceName) {
+          sliceId = sliceIdsByName.get(currentSliceName);
+          if (sliceId === undefined) {
+            console.error(`[${specId}] screen "${name}" references unknown slice "${currentSliceName}" — falling back to raw name, timeline column may be wrong`);
+            sliceId = currentSliceName;
+          }
+        }
+        nodes.push({ id: currentScreenId, label: name, laneId: "screen", sliceId, sliceType: "SCREEN", specId });
       }
       continue;
     }
 
-    const depLineMatch = line.match(DEP_LINE_RE);
-    if (depLineMatch && currentScreenId) {
-      for (const { arrow, otherName, type } of parseDependencySegments(depLineMatch[1])) {
-        const lane = depTypeToLane(type);
-        const namedRef = lane ? `NAME:${otherName}|${lane}` : `NAME:${otherName}`;
-        edges.push(
-          arrow === "→"
-            ? { source: currentScreenId, target: namedRef, label: "triggers" }
-            : { source: namedRef, target: currentScreenId, label: "triggers" },
-        );
-      }
+    const depMatch = line.match(DEP_RE);
+    if (depMatch && currentScreenId) {
+      const [, arrow, otherName, otherType] = depMatch;
+      edges.push(
+        arrow === "→"
+          ? { source: currentScreenId, target: `NAME:${otherType}:${otherName}`, label: "triggers" }
+          : { source: `NAME:${otherType}:${otherName}`, target: currentScreenId, label: "triggers" },
+      );
     }
   }
 
   return { nodes, edges };
 }
 
-/** Second pass: resolve NAME:<label> edge endpoints to real node ids by
- * matching against every node's label within the same spec. Cross-spec
- * dependencies (a different feature entirely) are left unresolved and
- * dropped with a warning — out of scope for a single-spec import. */
+const TYPE_TO_LANE = { SCREEN: "screen", COMMAND: "action", AUTOMATION: "action", PROCESSOR: "action", EVENT: "outcome" };
+
+/** Second pass: resolve NAME:<TYPE>:<label> edge endpoints to real node
+ * ids. Keyed by (label, laneId) rather than label alone — a Screen and a
+ * Command/Automation can share the exact same label in real PowerGym
+ * data (e.g. both named "Cancel Membership"), and resolving by label
+ * alone lets whichever node was added last silently win the lookup slot,
+ * producing a self-loop where a dependency resolves back to itself
+ * instead of the actually-referenced element. Cross-spec dependencies
+ * are left unresolved and dropped with a warning — out of scope here. */
 function resolveEdges(nodes, edges, specId) {
-  const specNodes = nodes.filter((n) => n.specId === specId);
-  const byLabel = new Map(specNodes.map((n) => [n.label, n.id]));
-  const byLabelAndLane = new Map(specNodes.map((n) => [`${n.label}|${n.laneId}`, n.id]));
-
-  function resolveRef(ref) {
+  const byLabelAndLane = new Map(
+    nodes.filter((n) => n.specId === specId).map((n) => [`${n.label}::${n.laneId}`, n.id]),
+  );
+  const resolveName = (ref) => {
     if (!ref.startsWith("NAME:")) return ref;
-    const rest = ref.slice(5);
-    const pipeIdx = rest.lastIndexOf("|");
-    if (pipeIdx === -1) return byLabel.get(rest);
-    const label = rest.slice(0, pipeIdx);
-    const lane = rest.slice(pipeIdx + 1);
-    return byLabelAndLane.get(`${label}|${lane}`) ?? byLabel.get(label);
-  }
-
+    const [, type, ...nameParts] = ref.split(":");
+    const name = nameParts.join(":");
+    const lane = TYPE_TO_LANE[type];
+    return lane ? byLabelAndLane.get(`${name}::${lane}`) : undefined;
+  };
   const resolved = [];
   let dropped = 0;
   for (const e of edges) {
-    const source = resolveRef(e.source);
-    const target = resolveRef(e.target);
+    const source = resolveName(e.source);
+    const target = resolveName(e.target);
     if (source && target) {
       resolved.push({ id: `e-${source}-${target}`, source, target, label: e.label });
     } else {
@@ -260,7 +245,7 @@ function importSpec(specDir) {
   const resText = existsSync(resPath) ? readFileSync(resPath, "utf-8") : "";
 
   const req = parseRequirements(reqText, specId);
-  const scr = parseScreens(resText, specId);
+  const scr = parseScreens(resText, specId, req.sliceIdsByName);
 
   const allNodes = [...req.nodes, ...scr.nodes];
   const explicitEdges = resolveEdges(allNodes, [...req.edges, ...scr.edges], specId);

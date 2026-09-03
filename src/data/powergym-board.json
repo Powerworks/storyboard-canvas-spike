@@ -84,7 +84,7 @@
       "id": "002a-member-registration:6a3ff23a-ca98-4c13-995e-c7d5f0b020b3",
       "label": "New Member Registration",
       "laneId": "screen",
-      "sliceId": "Register Member",
+      "sliceId": "842a7c33-e04a-448b-b31c-f8d69268084a",
       "sliceType": "SCREEN",
       "specId": "002a-member-registration"
     },
@@ -92,7 +92,7 @@
       "id": "002a-member-registration:edacc279-c7d9-40f5-a16c-5c9abbaa383b",
       "label": "Take Payment",
       "laneId": "screen",
-      "sliceId": "Receive Membership Payment",
+      "sliceId": "9280f310-2e62-4ac2-a385-723438013dae",
       "sliceType": "SCREEN",
       "specId": "002a-member-registration"
     },
@@ -148,7 +148,7 @@
       "id": "002b-membership-renewal:a32ab09f-3c50-47aa-abb8-4228305e6a6b",
       "label": "Renew Membership",
       "laneId": "screen",
-      "sliceId": "Process Payment",
+      "sliceId": "817945a2-b1e8-4028-abd1-b0f618df1425",
       "sliceType": "SCREEN",
       "specId": "002b-membership-renewal"
     },
@@ -220,7 +220,7 @@
       "id": "002c-membership-cancellation:6dd8ff1c-e048-4ff3-a59a-28cd69759864",
       "label": "Cancel Membership",
       "laneId": "screen",
-      "sliceId": "Cancel Membership",
+      "sliceId": "bc28d23b-a5bf-451a-b43b-8a2b28f74d09",
       "sliceType": "SCREEN",
       "specId": "002c-membership-cancellation"
     },
@@ -308,7 +308,7 @@
       "id": "003a-reserve-class-seat:2826c033-7f57-456e-bdc8-d9ba5ea9cf7e",
       "label": "Class Timetable",
       "laneId": "screen",
-      "sliceId": "Reserve Class Seat",
+      "sliceId": "390802f0-47d0-4362-b870-2345c2124fad",
       "sliceType": "SCREEN",
       "specId": "003a-reserve-class-seat"
     },
@@ -348,7 +348,7 @@
       "id": "003b-cancel-class-booking:058f220a-1fb7-48ab-8d38-7c532d283e93",
       "label": "My Bookings",
       "laneId": "screen",
-      "sliceId": "Cancel Class Booking",
+      "sliceId": "fa6d4510-b98f-4264-ae67-613c67b34584",
       "sliceType": "SCREEN",
       "specId": "003b-cancel-class-booking"
     },
@@ -388,7 +388,7 @@
       "id": "004-scheduling:d6fc4e96-b906-4933-9cd0-be73fd53d92d",
       "label": "Class Roster",
       "laneId": "screen",
-      "sliceId": "Complete Class",
+      "sliceId": "fb194626-5685-488e-82a2-641875d2fe64",
       "sliceType": "SCREEN",
       "specId": "004-scheduling"
     },
@@ -476,7 +476,7 @@
       "id": "005a-sale-driven-reorder:b5232aee-3f06-4b2e-8b7c-35a54cfeb6b4",
       "label": "Point of Sale",
       "laneId": "screen",
-      "sliceId": "Record Sale",
+      "sliceId": "2e18547f-90db-49fc-b2a6-a5bea4aa62b3",
       "sliceType": "SCREEN",
       "specId": "005a-sale-driven-reorder"
     },
@@ -516,7 +516,7 @@
       "id": "005b-stock-receiving:52cceb88-6f48-4af8-8fe0-a3af4458cb73",
       "label": "Receive Delivery",
       "laneId": "screen",
-      "sliceId": "Receive Stock",
+      "sliceId": "39875d23-19d2-4e26-ad7b-cdeb22d61cbb",
       "sliceType": "SCREEN",
       "specId": "005b-stock-receiving"
     },
@@ -620,7 +620,7 @@
       "id": "006-staffing:6aebccdd-a536-4501-af6d-81fe804c25af",
       "label": "Clock In",
       "laneId": "screen",
-      "sliceId": "Start Staff Shift",
+      "sliceId": "39fceb30-2313-451e-82ff-5f3186b1c5b7",
       "sliceType": "SCREEN",
       "specId": "006-staffing"
     },
@@ -628,7 +628,7 @@
       "id": "006-staffing:91df3104-654e-4527-9f0f-ab821e22986e",
       "label": "Clock Out",
       "laneId": "screen",
-      "sliceId": "End Shift",
+      "sliceId": "e4ceb51d-9554-4c9a-ae78-cfcd2594dc81",
       "sliceType": "SCREEN",
       "specId": "006-staffing"
     },
@@ -684,7 +684,7 @@
       "id": "007-accounting:d8eef58f-6859-4282-8063-88ad6b10e968",
       "label": "Run Payroll",
       "laneId": "screen",
-      "sliceId": "Generate Payroll",
+      "sliceId": "4c6d4ccc-2740-4481-97a9-4ee6d47d6904",
       "sliceType": "SCREEN",
       "specId": "007-accounting"
     },
@@ -724,7 +724,7 @@
       "id": "008-reporting:747e60c8-7c68-47ce-bf36-816296ab241c",
       "label": "Reports Dashboard",
       "laneId": "screen",
-      "sliceId": "Generate Monthly Report",
+      "sliceId": "6ed75590-6d1d-42d0-adf5-9272c6dba87e",
       "sliceType": "SCREEN",
       "specId": "008-reporting"
     },
@@ -812,7 +812,7 @@
       "id": "009a-complaint-resolution:9fba9809-4ede-42c9-baab-919892f4816e",
       "label": "Log Complaint",
       "laneId": "screen",
-      "sliceId": "Log Complaint",
+      "sliceId": "a3668550-0c8e-41db-8580-e05c11dbad1d",
       "sliceType": "SCREEN",
       "specId": "009a-complaint-resolution"
     },
@@ -820,7 +820,7 @@
       "id": "009a-complaint-resolution:6ba54ee8-c33f-4e6a-b068-2d830842d543",
       "label": "Resolve Complaint",
       "laneId": "screen",
-      "sliceId": "Resolve Complaint",
+      "sliceId": "19020553-84a6-48e1-8624-d0b3f5f4dfbd",
       "sliceType": "SCREEN",
       "specId": "009a-complaint-resolution"
     },
@@ -956,7 +956,7 @@
       "id": "010b-equipment-servicing:e4058229-e272-444b-9933-6c546cfad263",
       "label": "Close Work Order",
       "laneId": "screen",
-      "sliceId": "Complete Maintenance",
+      "sliceId": "70e83c7f-3236-495d-906f-9c497e80186d",
       "sliceType": "SCREEN",
       "specId": "010b-equipment-servicing"
     },
@@ -1060,7 +1060,7 @@
       "id": "011a-book-training-session:d85e5d90-a7d0-4b10-8b5b-cbe6106d00e8",
       "label": "Book PT Session",
       "laneId": "screen",
-      "sliceId": "Book Personal Training Session",
+      "sliceId": "b01ac7f7-d321-4735-8edc-be45e3c10a19",
       "sliceType": "SCREEN",
       "specId": "011a-book-training-session"
     },
@@ -1116,7 +1116,7 @@
       "id": "011b-complete-training-session:586da29b-2cae-42e8-99c3-2bc32747de2b",
       "label": "Complete Session",
       "laneId": "screen",
-      "sliceId": "Complete Training Session",
+      "sliceId": "1535cc12-fdfe-4ae9-8046-ec2a0791b90a",
       "sliceType": "SCREEN",
       "specId": "011b-complete-training-session"
     },
@@ -1188,7 +1188,7 @@
       "id": "012-retail-sales:8a967531-07af-4002-9769-4a48390750cc",
       "label": "Point of Sale",
       "laneId": "screen",
-      "sliceId": "Record Retail Sale",
+      "sliceId": "8580ba30-2d4f-49da-b555-d9acdf68dadc",
       "sliceType": "SCREEN",
       "specId": "012-retail-sales"
     }
