@@ -35,7 +35,15 @@ export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: strin
   }, [sliceId, nodes, edges]);
 
   const onNodesChange = useCallback(
-    (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
+    (changes: NodeChange[]) => {
+      const removedIds = new Set(
+        changes.filter((c): c is Extract<NodeChange, { type: "remove" }> => c.type === "remove").map((c) => c.id),
+      );
+      if (removedIds.size > 0) {
+        setSelected((sel) => (sel && removedIds.has(sel.id) ? null : sel));
+      }
+      setNodes((nds) => applyNodeChanges(changes, nds));
+    },
     [],
   );
   const onEdgesChange = useCallback(
