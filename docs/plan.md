@@ -32,9 +32,9 @@ Story-arc selector in the app UI, loading any imported arc on demand with comput
 
 Task-queued, skill-routed AI agent that edits the board itself — add/place elements, generate screens, spot gaps as analysis-only questions (never silent modifications), edit scenarios, update slice status. Pattern transposed from PowerGym's own `agentic-modeling/` tooling. Should reuse AgentOS's existing task-queue implementation rather than building a second one from scratch.
 
-### Phase 5 — Layer 2 Example Mapping (not started)
+### Phase 5 — Layer 2 Example Mapping (done)
 
-Per-slice drill-down: Yellow (story) / Blue (rules) / Green (examples/GWT) / Red (questions) cards, per the brief's design. Feeds Spec Kit-style business rules and acceptance scenarios.
+Per-slice drill-down (`ExampleMapView`), reached via a "Slices" list in the Layer 1 side panel: Rule (yellow) / Example (green, reusing Layer 1's Given/When/Then scenario shape) / Question (red) cards, free-form React Flow canvas, persisted to `localStorage` per slice (`exampleMapStore.ts`). Examples and Questions must attach to an already-selected Rule, matching the real Example Mapping facilitation method.
 
 ### Phase 6 (stretch) — Loopback / drift detection (not started)
 
