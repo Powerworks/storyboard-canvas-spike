@@ -40,6 +40,10 @@ Per-slice drill-down (`ExampleMapView`), reached via a "Slices" list in the Laye
 
 Per the brief's resolved question on bi-directionality: v1 stays uni-directional (canvas → export → code, re-export on change). Drift detection (flag when built code and the last-exported spec have diverged, without auto-reconciling) is the real next step — full bi-directional sync only once that's proven reliable.
 
+### Phase 7 — Spec-to-oracle export (in progress)
+
+`scripts/export-specifications.mjs` turns a slice's Layer 2 Example Map into a `specifications[]` array — the shape K9Crush's own `build-state-change`/`build-state-view` Claude Code skills already consume to write one xUnit test per specification, reusing that agent-driven pipeline instead of building a new deterministic GWT-to-xUnit codegen engine. Contract defined and exporter working (hard refusal on unresolved Questions, prose-string `given`/`when`/`then` — a known deviation from real slice.json's symbolic event/command arrays, documented in the script's header). Not yet done: wiring into K9Crush's mechanical build gate, proving a spec change blocks a previously-passing build, and drift detection (this last one folds into Phase 6 above).
+
 ## Explicitly out of scope for this repo
 
 - Regulated Industry mode / `compliance.md` enforcement — brief-level concern, not relevant until this becomes a real multi-project tool

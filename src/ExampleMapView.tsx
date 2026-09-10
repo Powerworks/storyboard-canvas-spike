@@ -51,6 +51,16 @@ export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: strin
     [],
   );
 
+  const exportBoardJson = useCallback(() => {
+    const blob = new Blob([JSON.stringify({ nodes, edges }, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${sliceId}-example-map.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [nodes, edges, sliceId]);
+
   const addRule = useCallback(() => {
     const label = window.prompt("Rule text?");
     if (!label) return;
@@ -125,6 +135,7 @@ export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: strin
           <button onClick={addRule}>+ Rule</button>
           <button onClick={() => addChild("example")}>+ Example</button>
           <button onClick={() => addChild("question")}>+ Question</button>
+          <button onClick={exportBoardJson}>Export Board JSON</button>
         </div>
         <ReactFlow
           nodes={nodes}
