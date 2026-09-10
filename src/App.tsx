@@ -14,7 +14,8 @@ import "@xyflow/react/dist/style.css";
 import { LaneBackground } from "./LaneBackground";
 import { snapYToLane, TOTAL_HEIGHT } from "./lanes";
 import { StoryboardNode, type StoryboardNodeData } from "./StoryboardNode";
-import { listSpecs, loadSpec } from "./loadBoard";
+import { listSpecs, loadSpec, listSlices } from "./loadBoard";
+import { ExampleMapView } from "./ExampleMapView";
 
 const CANVAS_WIDTH = 2400;
 
@@ -34,6 +35,8 @@ export default function App() {
   const [nodes, setNodes] = useState<Node[]>(initial.nodes);
   const [edges, setEdges] = useState<Edge[]>(initial.edges);
   const [selected, setSelected] = useState<Node | null>(null);
+  const [openSliceId, setOpenSliceId] = useState<string | null>(null);
+  const slices = listSlices(selectedSpec);
 
   const changeSpec = useCallback((specId: string) => {
     setSelectedSpec(specId);
@@ -65,6 +68,18 @@ export default function App() {
       ),
     );
   }, []);
+
+  if (openSliceId) {
+    const slice = slices.find((s) => s.sliceId === openSliceId);
+    return (
+      <ExampleMapView
+        key={openSliceId}
+        sliceId={openSliceId}
+        sliceLabel={slice?.label ?? openSliceId}
+        onBack={() => setOpenSliceId(null)}
+      />
+    );
+  }
 
   return (
     <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
@@ -106,6 +121,30 @@ export default function App() {
         </select>
         <div style={{ color: "#71717a", marginBottom: 16, fontSize: 11 }}>
           {nodes.length} nodes, {edges.length} edges — imported from PowerGym's real eventmodelers.ai board
+        </div>
+
+        <h3 style={{ marginTop: 0 }}>Slices</h3>
+        <div style={{ maxHeight: 160, overflowY: "auto", marginBottom: 16 }}>
+          {slices.map((s) => (
+            <div
+              key={s.sliceId}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "4px 0",
+                borderBottom: "1px solid #f4f4f5",
+                fontSize: 12,
+              }}
+            >
+              <span title={s.label} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {s.label}
+              </span>
+              <button style={{ fontSize: 11 }} onClick={() => setOpenSliceId(s.sliceId)}>
+                Example Map &rarr;
+              </button>
+            </div>
+          ))}
         </div>
 
         <h3 style={{ marginTop: 0 }}>Scenario</h3>

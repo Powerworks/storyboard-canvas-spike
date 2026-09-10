@@ -42,6 +42,27 @@ export function listSpecs(): string[] {
   return order;
 }
 
+export interface SliceSummary {
+  sliceId: string;
+  label: string;
+}
+
+/** Slices for one spec, in order of first appearance, labeled by their
+ * Screen node when present (most readable) or their first node otherwise —
+ * the source board carries no separate slice title field. */
+export function listSlices(specId: string): SliceSummary[] {
+  const specNodes = board.nodes.filter((n) => n.specId === specId);
+  const seen = new Set<string>();
+  const order: SliceSummary[] = [];
+  for (const n of specNodes) {
+    if (seen.has(n.sliceId)) continue;
+    seen.add(n.sliceId);
+    const screenNode = specNodes.find((m) => m.sliceId === n.sliceId && m.laneId === "screen");
+    order.push({ sliceId: n.sliceId, label: (screenNode ?? n).label });
+  }
+  return order;
+}
+
 /** Load one spec (story-arc) as React Flow nodes/edges, laid out on the
  * fixed lane bands from lanes.ts. The source board carries no position
  * data at all (confirmed against the real PowerGym export — every
