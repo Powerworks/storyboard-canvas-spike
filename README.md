@@ -31,9 +31,9 @@ Opens the canvas with PowerGym's real "Member Registration" story-arc loaded by 
 - Inline Scenario (Given/When/Then) attachment on any node
 - Import adapter for eventmodelers.ai board exports
 - Read-only MCP server exposing the board
+- Layer 2 Example Mapping: per-slice, free-form canvas of Rule/Example/Question cards, persisted to `localStorage`
 
 **Out (deferred):**
-- Layer 2 Example Mapping (Yellow/Blue/Green/Red cards)
 - Markdown/GWT export beyond the MCP tool responses
 - AI-generated content (sketches, code)
 - Multiplayer/collaboration
