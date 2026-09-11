@@ -110,6 +110,24 @@ export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: strin
     [selected, edges],
   );
 
+  const markAnswered = useCallback(() => {
+    if (!selected || (selected.data as ExampleMapNodeData).nodeType !== "question") {
+      window.alert("Select a Question card first.");
+      return;
+    }
+    const answer = window.prompt("Answer?");
+    if (!answer) return;
+    const targetId = selected.id;
+    const answeredAt = new Date().toISOString();
+    setNodes((nds) =>
+      nds.map((n) =>
+        n.id === targetId
+          ? { ...n, data: { ...n.data, status: "answered", answer, answeredAt } as ExampleMapNodeData }
+          : n,
+      ),
+    );
+  }, [selected]);
+
   return (
     <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
       <div style={{ flex: 1, position: "relative" }}>
@@ -135,6 +153,7 @@ export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: strin
           <button onClick={addRule}>+ Rule</button>
           <button onClick={() => addChild("example")}>+ Example</button>
           <button onClick={() => addChild("question")}>+ Question</button>
+          <button onClick={markAnswered}>Mark Answered</button>
           <button onClick={exportBoardJson}>Export Board JSON</button>
         </div>
         <ReactFlow
