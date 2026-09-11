@@ -112,7 +112,8 @@ function loadSlices(boardsDir, sliceIds) {
 }
 
 function renderMarkdown({ project, client, status, rate, currency, date, slices }) {
-  const total = slices.length * rate;
+  const totalCents = Math.round(slices.length * Math.round(rate * 100));
+  const total = (totalCents / 100).toFixed(2);
   const slicesWithQuestions = slices.filter((s) => s.openQuestions.length > 0);
 
   const lines = [];
