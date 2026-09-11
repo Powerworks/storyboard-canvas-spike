@@ -21,6 +21,7 @@ Opens the canvas with PowerGym's real "Member Registration" story-arc loaded by 
 | `scripts/import-eventmodelers.mjs` | Import adapter: parses eventmodelers.ai board exports (`requirements.md`/`research.md`, as transcribed by the PowerGym-style build kit) into this canvas's node/edge schema |
 | `scripts/export-specifications.mjs` | Export adapter (the reverse of the import script): turns one slice's Layer 2 Example Map into a `specifications[]` array, the shape K9Crush's `build-state-change`/`build-state-view` skills consume to write one xUnit test per specification — see the script's header comment for known schema deviations |
 | `scripts/export-billing-snapshot.mjs` | Export adapter: turns a chosen set of slices' Layer 2 Example Maps into a priced, client-facing scope-of-work Markdown document (slices × flat per-slice rate = total), flagging rather than refusing slices with open Questions — see the script's header comment for the policy contrast with `export-specifications.mjs` |
+| `scripts/export-stakeholder-digest.mjs` | Export adapter: turns a chosen set of slices' Layer 2 Example Maps into a shareable Markdown status view of currently-open and recently-answered Questions, so stakeholders can check progress between sessions without a notification backend — `--mode always-current` (default, overwrites one fixed file) or `--mode versioned` (never overwrites, numbered suffixes like `export-billing-snapshot.mjs`); see the script's header comment |
 | `src/data/powergym-board.json` | The adapter's output, run against all 18 of PowerGym's real story-arcs — 149 nodes, 84 edges |
 | `mcp-server/` | An [MCP server](mcp-server/README.md) exposing the board to any MCP-compatible harness (Claude Code, Gemini CLI, etc.) — read-only for now |
 | `docs/` | Plan, solution architecture, and [ADRs](docs/adr/) for the real decisions made building this |
@@ -33,14 +34,17 @@ Opens the canvas with PowerGym's real "Member Registration" story-arc loaded by 
 - Inline Scenario (Given/When/Then) attachment on any node
 - Import adapter for eventmodelers.ai board exports
 - Read-only MCP server exposing the board
-- Layer 2 Example Mapping: per-slice, free-form canvas of Rule/Example/Question cards, persisted to `localStorage`, with an "Export Board JSON" action for feeding the export adapter below
+- Layer 2 Example Mapping: per-slice, free-form canvas of Rule/Example/Question cards, persisted to `localStorage`, with an "Export Board JSON" action for feeding the export adapters below
+- Question nodes carry a status (open/answered, with answer text and an ISO timestamp) and a "Mark Answered" toolbar action; missing status is treated as open, so no migration is needed for boards saved before this field existed
 - Export adapter turning a slice's Example Map into a `specifications[]` array for downstream test-generation (`scripts/export-specifications.mjs`) — see [the plan](docs/plan.md) for what's still out of scope (wiring into a mechanical gate, drift detection)
 - Export adapter turning chosen slices' Example Maps into a priced, client-facing scope-of-work Markdown snapshot (`scripts/export-billing-snapshot.mjs`)
+- Export adapter turning chosen slices' Example Maps into a shareable Markdown stakeholder digest of open and recently-answered Questions (`scripts/export-stakeholder-digest.mjs`)
 
 **Out (deferred):**
-- Markdown export beyond the billing snapshot and MCP tool responses
+- Markdown export beyond the exporters and MCP tool responses above
 - AI-generated content (sketches, code)
 - Multiplayer/collaboration
+- Real-time push notifications and two-way/live stakeholder editing — digests are shared manually and answers are still entered back via "Mark Answered", not captured automatically
 - Writing back to the board (the planned "Agentic Modeling" capability — task-queued, skill-routed edits; see [the plan](docs/plan.md))
 
 ## Development

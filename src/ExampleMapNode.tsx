@@ -2,6 +2,8 @@ import { Handle, Position, type NodeProps } from "@xyflow/react";
 
 export type ExampleMapNodeType = "rule" | "example" | "question";
 
+export type QuestionStatus = "open" | "answered";
+
 export interface ExampleMapNodeData {
   nodeType: ExampleMapNodeType;
   label: string;
@@ -9,6 +11,12 @@ export interface ExampleMapNodeData {
    * green card is itself a Given/When/Then, same shape as the Layer 1
    * Scenario feature it's borrowed from. */
   scenario?: { given: string; when: string; then: string };
+  /** Only meaningful on "question" nodes. Missing/undefined is treated as
+   * "open" everywhere this is read (no migration needed for existing
+   * boards saved before this field existed) — see export-stakeholder-digest.mjs. */
+  status?: QuestionStatus;
+  answer?: string;
+  answeredAt?: string; // ISO date
   [key: string]: unknown;
 }
 
@@ -18,9 +26,12 @@ const STYLE: Record<ExampleMapNodeType, { bg: string; border: string; label: str
   question: { bg: "#fee2e2", border: "#ef4444", label: "QUESTION" },
 };
 
+const ANSWERED_STYLE = { bg: "#f4f4f5", border: "#a1a1aa", label: "QUESTION — ANSWERED" };
+
 export function ExampleMapNode({ data }: NodeProps) {
   const nodeData = data as unknown as ExampleMapNodeData;
-  const style = STYLE[nodeData.nodeType];
+  const isAnsweredQuestion = nodeData.nodeType === "question" && nodeData.status === "answered";
+  const style = isAnsweredQuestion ? ANSWERED_STYLE : STYLE[nodeData.nodeType];
 
   return (
     <div
@@ -45,6 +56,11 @@ export function ExampleMapNode({ data }: NodeProps) {
           <div><strong>Given</strong> {nodeData.scenario.given}</div>
           <div><strong>When</strong> {nodeData.scenario.when}</div>
           <div><strong>Then</strong> {nodeData.scenario.then}</div>
+        </div>
+      )}
+      {isAnsweredQuestion && nodeData.answer && (
+        <div style={{ marginTop: 6, fontSize: 11, lineHeight: 1.5, color: "#3f3f46" }}>
+          <strong>Answer</strong> {nodeData.answer}
         </div>
       )}
       <Handle type="source" position={Position.Bottom} />
