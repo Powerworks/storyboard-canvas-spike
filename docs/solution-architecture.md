@@ -43,7 +43,7 @@ Output: a flat `{nodes, edges}` JSON structure, not positioned — layout is a d
 - `StoryboardNode.tsx` — the custom node component, styled by lane, showing an attached Scenario (Given/When/Then) as a badge + detail panel if present.
 - `loadBoard.ts` — transforms the import adapter's flat node/edge JSON into React Flow's `Node[]`/`Edge[]` shape, computing timeline-column X positions per spec (slices in order of first appearance) and snapping Y to each node's lane. Also exposes `listSlices`, enumerating a spec's slices labeled by their Screen node when present (the source board carries no separate slice title field).
 - `App.tsx` — ties it together: a story-arc selector, the React Flow canvas, the Scenario side panel, and a "Slices" list that opens each slice's Layer 2 Example Map.
-- `ExampleMapView.tsx` / `ExampleMapNode.tsx` / `exampleMapStore.ts` — Layer 2 Example Mapping: a free-form, per-slice React Flow canvas of Rule (yellow) / Example (green, reusing the Scenario Given/When/Then shape) / Question (red) cards. Examples and Questions must attach to a selected Rule. Persisted to `localStorage` per slice, independent of the committed board JSON.
+- `ExampleMapView.tsx` / `ExampleMapNode.tsx` / `exampleMapStore.ts` — Layer 2 Example Mapping: a free-form, per-slice React Flow canvas of Rule (yellow) / Example (green, reusing the Scenario Given/When/Then shape) / Question (red, or grey with inline answer text once marked answered via the "Mark Answered" toolbar action) cards. Examples and Questions must attach to a selected Rule. Persisted to `localStorage` per slice, independent of the committed board JSON.
 
 ### MCP server (`mcp-server/`)
 
