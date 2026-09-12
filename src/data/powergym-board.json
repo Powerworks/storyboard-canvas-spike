@@ -2620,6 +2620,46 @@
         }
       ]
     },
+    "5482bf7a-46a8-4454-8c2e-575f56f00269": {
+      "nodes": [
+        {
+          "id": "seed-rule-5482bf7a-46a8-4454-8c2e-575f56f00269-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Stock Monitor, producing the Low Stock Detected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-5482bf7a-46a8-4454-8c2e-575f56f00269-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "A sale reduces stock below the reorder threshold",
+            "scenario": {
+              "given": "Inventory Reduced",
+              "when": "Detect Low Stock",
+              "then": "Low Stock Detected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-5482bf7a-46a8-4454-8c2e-575f56f00269-FR-3-seed-example-5482bf7a-46a8-4454-8c2e-575f56f00269-AC-3.1",
+          "source": "seed-rule-5482bf7a-46a8-4454-8c2e-575f56f00269-FR-3",
+          "target": "seed-example-5482bf7a-46a8-4454-8c2e-575f56f00269-AC-3.1"
+        }
+      ]
+    },
     "59539bee-993a-4b88-a76f-3ba9576af4d1": {
       "nodes": [
         {
@@ -2900,10 +2940,10 @@
         }
       ]
     },
-    "144d46f3-647a-4dca-8e77-3be356039b72": {
+    "6fce0bf9-e265-4f36-a323-58440a2f86aa": {
       "nodes": [
         {
-          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-4",
+          "id": "seed-rule-6fce0bf9-e265-4f36-a323-58440a2f86aa-FR-4",
           "type": "exampleMap",
           "position": {
             "x": 40,
@@ -2915,7 +2955,7 @@
           }
         },
         {
-          "id": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-4.1",
+          "id": "seed-example-6fce0bf9-e265-4f36-a323-58440a2f86aa-AC-4.1",
           "type": "exampleMap",
           "position": {
             "x": 320,
@@ -2930,47 +2970,13 @@
               "then": "Shift End Rejected"
             }
           }
-        },
-        {
-          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6",
-          "type": "exampleMap",
-          "position": {
-            "x": 120,
-            "y": 80
-          },
-          "data": {
-            "nodeType": "rule",
-            "label": "System SHOULD support Shift Guard, producing the Duplicate Shift Start Detected domain event(s)"
-          }
-        },
-        {
-          "id": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1",
-          "type": "exampleMap",
-          "position": {
-            "x": 400,
-            "y": 260
-          },
-          "data": {
-            "nodeType": "example",
-            "label": "AC-6.1",
-            "scenario": {
-              "given": "the preconditions for this step are met",
-              "when": "Shift Guard",
-              "then": "Duplicate Shift Start Detected"
-            }
-          }
         }
       ],
       "edges": [
         {
-          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-4-seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-4.1",
-          "source": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-4",
-          "target": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-4.1"
-        },
-        {
-          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6-seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1",
-          "source": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6",
-          "target": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1"
+          "id": "seed-rule-6fce0bf9-e265-4f36-a323-58440a2f86aa-FR-4-seed-example-6fce0bf9-e265-4f36-a323-58440a2f86aa-AC-4.1",
+          "source": "seed-rule-6fce0bf9-e265-4f36-a323-58440a2f86aa-FR-4",
+          "target": "seed-example-6fce0bf9-e265-4f36-a323-58440a2f86aa-AC-4.1"
         }
       ]
     },
@@ -3011,6 +3017,46 @@
           "id": "seed-rule-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-FR-5-seed-example-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-AC-5.1",
           "source": "seed-rule-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-FR-5",
           "target": "seed-example-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-AC-5.1"
+        }
+      ]
+    },
+    "144d46f3-647a-4dca-8e77-3be356039b72": {
+      "nodes": [
+        {
+          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Shift Guard, producing the Duplicate Shift Start Detected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-6.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Shift Guard",
+              "then": "Duplicate Shift Start Detected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6-seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1",
+          "source": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6",
+          "target": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1"
         }
       ]
     },

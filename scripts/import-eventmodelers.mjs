@@ -39,6 +39,7 @@ const SCREEN_CONTEXT_RE = /^_\(from slice: (.+?)\)_$/;
 const AC_RE = /^- (AC-\S+): (?:_(.+?)_ — )?Given (.+?), When (.+?), Then (.+)$/;
 const FR_ROW_RE = /^\|\s*(FR-\d+)\s*\|\s*(.+?)\s*\|\s*(\S+)\s*\|\s*(AC-\S+)\s*\|$/;
 const UNRESOLVED_Q_RE = /^- (.+)$/;
+const EVENT_FROM_FR_RE = /producing (?:the )?(.+?) domain event\(s\)$/;
 
 function elementTypeToLane(elementType, sliceType) {
   if (elementType === "screen") return "screen";
@@ -66,8 +67,18 @@ function parseRequirements(text, specId) {
    * of whether it was kept as a Layer 1 node or skipped as a redundant
    * AUTOMATION-slice command — an AC's "When <label>" can name either, so
    * the seed-Example join (buildSeedExampleMaps) needs the full set, not
-   * just the kept nodes. */
+   * just the kept nodes. Last-write-wins per label, which is only safe
+   * as a fallback: a label can be reused across sibling slices in the
+   * same spec (confirmed in real data — two AUTOMATION slices both name
+   * their automation "Shift Guard"), so the primary join key is the
+   * produced-event label below, which doesn't collide in any real spec. */
   const elementSliceByLabel = new Map();
+  /** Every event element's label -> every sliceId that produces an event
+   * with that label (array, to detect collisions rather than silently
+   * picking one) — an FR row's "producing the <Event> domain event(s)"
+   * names this label, and it's confirmed unique per spec across all 18
+   * real PowerGym specs, unlike command/automation labels. */
+  const eventSliceByLabel = new Map();
   const lines = text.split("\n");
 
   let currentSlice = null;
@@ -94,6 +105,10 @@ function parseRequirements(text, specId) {
       const laneId = elementTypeToLane(elementType, currentSlice.type);
       currentElementId = elId ? `${specId}:${elId}` : null;
       elementSliceByLabel.set(name, currentSlice.id);
+      if (elementType === "event") {
+        if (!eventSliceByLabel.has(name)) eventSliceByLabel.set(name, []);
+        eventSliceByLabel.get(name).push(currentSlice.id);
+      }
       if (laneId && currentElementId) {
         nodes.push({
           id: currentElementId,
@@ -133,7 +148,7 @@ function parseRequirements(text, specId) {
     }
   }
 
-  return { nodes, edges, sliceIdsByName, elementSliceByLabel };
+  return { nodes, edges, sliceIdsByName, elementSliceByLabel, eventSliceByLabel };
 }
 
 /** Parse every "**Acceptance Criteria:**" bullet across all User Stories:
@@ -185,9 +200,15 @@ function parseUnresolvedQuestions(text) {
 }
 
 /** Join Functional Requirements to their Acceptance Criteria and resolve
- * each to a sliceId via the AC's "When <label>" text, looked up against
- * every parsed element's label (not just kept Layer 1 nodes) — an
- * AUTOMATION-type slice's AC names its command, which
+ * each to a sliceId primarily via the FR's own "producing the <Event>
+ * domain event(s)" text, looked up against every parsed event element's
+ * label — confirmed unique per spec across all 18 real PowerGym specs,
+ * unlike command/automation labels (two AUTOMATION slices can and do
+ * share an automation label, e.g. "Shift Guard" in 006-staffing, which
+ * would otherwise misattribute both slices' seeds to whichever slice was
+ * parsed last). Falls back to the AC's "When <label>" text, looked up
+ * against every parsed element's label (not just kept Layer 1 nodes) —
+ * an AUTOMATION-type slice's AC names its command, which
  * `elementTypeToLane` deliberately skips as redundant with the
  * automation/processor node, so the kept-nodes set alone would miss most
  * AUTOMATION slices (confirmed: skips every one of them before this fix).
@@ -201,7 +222,7 @@ function parseUnresolvedQuestions(text) {
  * per-slice attribution in any real spec (every one is empty anyway — see
  * parseUnresolvedQuestions), so inventing a slice mapping isn't possible
  * without guessing. */
-function buildSeedExampleMaps(elementSliceByLabel, frRows, acById) {
+function buildSeedExampleMaps(elementSliceByLabel, eventSliceByLabel, frRows, acById, specId) {
   /** @type {Map<string, { nodes: object[], edges: object[] }>} */
   const bySlice = new Map();
 
@@ -211,7 +232,18 @@ function buildSeedExampleMaps(elementSliceByLabel, frRows, acById) {
       console.error(`[seed] ${fr.frId} references ${fr.acRef}, no matching Acceptance Criteria line found — skipped`);
       continue;
     }
-    const sliceId = elementSliceByLabel.get(ac.when);
+    const eventMatch = fr.text.match(EVENT_FROM_FR_RE);
+    const eventName = eventMatch ? eventMatch[1].trim() : null;
+    const eventSliceIds = eventName ? eventSliceByLabel.get(eventName) : undefined;
+    let sliceId;
+    if (eventSliceIds?.length === 1) {
+      sliceId = eventSliceIds[0];
+    } else {
+      if (eventSliceIds?.length > 1) {
+        console.error(`[seed] [${specId}] ${fr.frId}'s produced event "${eventName}" is modeled in ${eventSliceIds.length} slices — ambiguous, falling back to "When ${ac.when}" element lookup`);
+      }
+      sliceId = elementSliceByLabel.get(ac.when);
+    }
     if (!sliceId) {
       console.error(`[seed] ${fr.acRef}'s "When ${ac.when}" doesn't match any element in the Event Model Detail appendix — skipped`);
       continue;
@@ -380,7 +412,7 @@ function importSpec(specDir) {
 
   const acById = parseAcceptanceCriteria(reqText);
   const frRows = parseFunctionalRequirements(reqText);
-  const seedExampleMaps = buildSeedExampleMaps(req.elementSliceByLabel, frRows, acById);
+  const seedExampleMaps = buildSeedExampleMaps(req.elementSliceByLabel, req.eventSliceByLabel, frRows, acById, specId);
   const unresolvedQuestions = parseUnresolvedQuestions(reqText);
   if (unresolvedQuestions.length > 0) {
     console.error(`[${specId}] ${unresolvedQuestions.length} real Unresolved Question(s) found (unprecedented in current data) — not seeded as Question cards, no per-slice attribution exists in this source format: ${unresolvedQuestions.join(" | ")}`);
