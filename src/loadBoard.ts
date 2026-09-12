@@ -1,6 +1,7 @@
 import type { Node, Edge } from "@xyflow/react";
 import { LANES, snapYToLane, type LaneId } from "./lanes";
 import type { StoryboardNodeData } from "./StoryboardNode";
+import type { ExampleMapBoard } from "./exampleMapStore";
 import rawBoard from "./data/powergym-board.json";
 
 /** Shape produced by scripts/import-eventmodelers.mjs — see that file for
@@ -22,6 +23,12 @@ interface ImportedEdge {
 interface ImportedBoard {
   nodes: ImportedNode[];
   edges: ImportedEdge[];
+  /** WS2.5 — a seed Layer 2 Example Map per slice where the source's
+   * Functional Requirements/Acceptance Criteria had real content to pull
+   * in, keyed by sliceId. Not present for every slice: only ones an FR row
+   * could be joined to an AC and resolved to an element (see the import
+   * script's own logged skips for the rare cases it couldn't). */
+  seedExampleMaps?: Record<string, ExampleMapBoard>;
 }
 
 const board = rawBoard as ImportedBoard;
@@ -107,4 +114,12 @@ export function loadSpec(specId: string): { nodes: Node[]; edges: Edge[] } {
   }));
 
   return { nodes, edges };
+}
+
+/** The board-derived seed Example Map for one slice, if the import script
+ * (WS2.5) found real Functional Requirements/Acceptance Criteria content
+ * to build one from. Undefined for a slice with none — the caller decides
+ * what "no seed" means (an empty board, most likely). */
+export function getSeedExampleMap(sliceId: string): ExampleMapBoard | undefined {
+  return board.seedExampleMaps?.[sliceId];
 }

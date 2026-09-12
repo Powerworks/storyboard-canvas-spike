@@ -1698,5 +1698,2561 @@
       "target": "012-retail-sales:762e0156-bcb1-479a-af7a-3d1d75ba755d",
       "label": "produces"
     }
-  ]
+  ],
+  "seedExampleMaps": {
+    "842a7c33-e04a-448b-b31c-f8d69268084a": {
+      "nodes": [
+        {
+          "id": "seed-rule-842a7c33-e04a-448b-b31c-f8d69268084a-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Register Member, producing the Member Registered domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-842a7c33-e04a-448b-b31c-f8d69268084a-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Receptionist registers a new walk-in member",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Register Member",
+              "then": "Member Registered"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-842a7c33-e04a-448b-b31c-f8d69268084a-FR-1-seed-example-842a7c33-e04a-448b-b31c-f8d69268084a-AC-1.1",
+          "source": "seed-rule-842a7c33-e04a-448b-b31c-f8d69268084a-FR-1",
+          "target": "seed-example-842a7c33-e04a-448b-b31c-f8d69268084a-AC-1.1"
+        }
+      ]
+    },
+    "9280f310-2e62-4ac2-a385-723438013dae": {
+      "nodes": [
+        {
+          "id": "seed-rule-9280f310-2e62-4ac2-a385-723438013dae-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Record Membership Payment, producing the Membership Payment Received domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-9280f310-2e62-4ac2-a385-723438013dae-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Record Membership Payment",
+              "then": "Membership Payment Received"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-9280f310-2e62-4ac2-a385-723438013dae-FR-2-seed-example-9280f310-2e62-4ac2-a385-723438013dae-AC-2.1",
+          "source": "seed-rule-9280f310-2e62-4ac2-a385-723438013dae-FR-2",
+          "target": "seed-example-9280f310-2e62-4ac2-a385-723438013dae-AC-2.1"
+        }
+      ]
+    },
+    "588caceb-73dc-4625-b1a9-5e1068e6ef58": {
+      "nodes": [
+        {
+          "id": "seed-rule-588caceb-73dc-4625-b1a9-5e1068e6ef58-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Membership Activator, producing the Membership Activated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-588caceb-73dc-4625-b1a9-5e1068e6ef58-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Membership Activator",
+              "then": "Membership Activated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-588caceb-73dc-4625-b1a9-5e1068e6ef58-FR-3-seed-example-588caceb-73dc-4625-b1a9-5e1068e6ef58-AC-3.1",
+          "source": "seed-rule-588caceb-73dc-4625-b1a9-5e1068e6ef58-FR-3",
+          "target": "seed-example-588caceb-73dc-4625-b1a9-5e1068e6ef58-AC-3.1"
+        }
+      ]
+    },
+    "6c0a316e-b22f-4c15-b663-4b685666750e": {
+      "nodes": [
+        {
+          "id": "seed-rule-6c0a316e-b22f-4c15-b663-4b685666750e-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Registration Guard, producing the Member Registration Rejected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-6c0a316e-b22f-4c15-b663-4b685666750e-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Registration Guard",
+              "then": "Member Registration Rejected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-6c0a316e-b22f-4c15-b663-4b685666750e-FR-4-seed-example-6c0a316e-b22f-4c15-b663-4b685666750e-AC-4.1",
+          "source": "seed-rule-6c0a316e-b22f-4c15-b663-4b685666750e-FR-4",
+          "target": "seed-example-6c0a316e-b22f-4c15-b663-4b685666750e-AC-4.1"
+        }
+      ]
+    },
+    "7f382e2c-2494-4011-b1d2-c6a9dfffd873": {
+      "nodes": [
+        {
+          "id": "seed-rule-7f382e2c-2494-4011-b1d2-c6a9dfffd873-FR-5",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Activation Guard, producing the Membership Activation Failed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-7f382e2c-2494-4011-b1d2-c6a9dfffd873-AC-5.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-5.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Activation Guard",
+              "then": "Membership Activation Failed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-7f382e2c-2494-4011-b1d2-c6a9dfffd873-FR-5-seed-example-7f382e2c-2494-4011-b1d2-c6a9dfffd873-AC-5.1",
+          "source": "seed-rule-7f382e2c-2494-4011-b1d2-c6a9dfffd873-FR-5",
+          "target": "seed-example-7f382e2c-2494-4011-b1d2-c6a9dfffd873-AC-5.1"
+        }
+      ]
+    },
+    "817945a2-b1e8-4028-abd1-b0f618df1425": {
+      "nodes": [
+        {
+          "id": "seed-rule-817945a2-b1e8-4028-abd1-b0f618df1425-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Process Payment, producing the Renewal Payment Received domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-817945a2-b1e8-4028-abd1-b0f618df1425-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Process Payment",
+              "then": "Renewal Payment Received"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-817945a2-b1e8-4028-abd1-b0f618df1425-FR-1-seed-example-817945a2-b1e8-4028-abd1-b0f618df1425-AC-1.1",
+          "source": "seed-rule-817945a2-b1e8-4028-abd1-b0f618df1425-FR-1",
+          "target": "seed-example-817945a2-b1e8-4028-abd1-b0f618df1425-AC-1.1"
+        }
+      ]
+    },
+    "c259fc6a-c6ff-4e73-a6ad-f2b90dfdb150": {
+      "nodes": [
+        {
+          "id": "seed-rule-c259fc6a-c6ff-4e73-a6ad-f2b90dfdb150-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Membership Renewer, producing the Membership Renewed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-c259fc6a-c6ff-4e73-a6ad-f2b90dfdb150-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Member submits a renewal payment",
+            "scenario": {
+              "given": "Renewal Payment Received",
+              "when": "Renew Membership",
+              "then": "Membership Renewed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-c259fc6a-c6ff-4e73-a6ad-f2b90dfdb150-FR-2-seed-example-c259fc6a-c6ff-4e73-a6ad-f2b90dfdb150-AC-2.1",
+          "source": "seed-rule-c259fc6a-c6ff-4e73-a6ad-f2b90dfdb150-FR-2",
+          "target": "seed-example-c259fc6a-c6ff-4e73-a6ad-f2b90dfdb150-AC-2.1"
+        }
+      ]
+    },
+    "40e7ab28-c515-4cdc-85f5-0f483c24e25e": {
+      "nodes": [
+        {
+          "id": "seed-rule-40e7ab28-c515-4cdc-85f5-0f483c24e25e-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Payment Guard, producing the Payment Declined domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-40e7ab28-c515-4cdc-85f5-0f483c24e25e-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Payment Guard",
+              "then": "Payment Declined"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-40e7ab28-c515-4cdc-85f5-0f483c24e25e-FR-3-seed-example-40e7ab28-c515-4cdc-85f5-0f483c24e25e-AC-3.1",
+          "source": "seed-rule-40e7ab28-c515-4cdc-85f5-0f483c24e25e-FR-3",
+          "target": "seed-example-40e7ab28-c515-4cdc-85f5-0f483c24e25e-AC-3.1"
+        }
+      ]
+    },
+    "bc28d23b-a5bf-451a-b43b-8a2b28f74d09": {
+      "nodes": [
+        {
+          "id": "seed-rule-bc28d23b-a5bf-451a-b43b-8a2b28f74d09-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Cancel Membership, producing the Membership Cancellation Requested domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-bc28d23b-a5bf-451a-b43b-8a2b28f74d09-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Member requests cancellation of an active membership",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Cancel Membership",
+              "then": "Membership Cancellation Requested"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-bc28d23b-a5bf-451a-b43b-8a2b28f74d09-FR-1-seed-example-bc28d23b-a5bf-451a-b43b-8a2b28f74d09-AC-1.1",
+          "source": "seed-rule-bc28d23b-a5bf-451a-b43b-8a2b28f74d09-FR-1",
+          "target": "seed-example-bc28d23b-a5bf-451a-b43b-8a2b28f74d09-AC-1.1"
+        }
+      ]
+    },
+    "6a49769c-249b-41ba-b3d3-8d402d8833da": {
+      "nodes": [
+        {
+          "id": "seed-rule-6a49769c-249b-41ba-b3d3-8d402d8833da-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Cancellation Processor, producing the Membership Cancelled domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-6a49769c-249b-41ba-b3d3-8d402d8833da-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Cancellation Processor",
+              "then": "Membership Cancelled"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-6a49769c-249b-41ba-b3d3-8d402d8833da-FR-2-seed-example-6a49769c-249b-41ba-b3d3-8d402d8833da-AC-2.1",
+          "source": "seed-rule-6a49769c-249b-41ba-b3d3-8d402d8833da-FR-2",
+          "target": "seed-example-6a49769c-249b-41ba-b3d3-8d402d8833da-AC-2.1"
+        }
+      ]
+    },
+    "7679d9ae-70d5-407a-bd98-afadfde78132": {
+      "nodes": [
+        {
+          "id": "seed-rule-7679d9ae-70d5-407a-bd98-afadfde78132-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Cancellation Guard, producing the Membership Cancellation Blocked domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-7679d9ae-70d5-407a-bd98-afadfde78132-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Cancellation Guard",
+              "then": "Membership Cancellation Blocked"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-7679d9ae-70d5-407a-bd98-afadfde78132-FR-3-seed-example-7679d9ae-70d5-407a-bd98-afadfde78132-AC-3.1",
+          "source": "seed-rule-7679d9ae-70d5-407a-bd98-afadfde78132-FR-3",
+          "target": "seed-example-7679d9ae-70d5-407a-bd98-afadfde78132-AC-3.1"
+        }
+      ]
+    },
+    "a687a7b8-d95b-4d5c-a667-6a9e61aecc99": {
+      "nodes": [
+        {
+          "id": "seed-rule-a687a7b8-d95b-4d5c-a667-6a9e61aecc99-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Booking Canceller, producing the Future Bookings Cancelled domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-a687a7b8-d95b-4d5c-a667-6a9e61aecc99-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Booking Canceller",
+              "then": "Future Bookings Cancelled"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-a687a7b8-d95b-4d5c-a667-6a9e61aecc99-FR-4-seed-example-a687a7b8-d95b-4d5c-a667-6a9e61aecc99-AC-4.1",
+          "source": "seed-rule-a687a7b8-d95b-4d5c-a667-6a9e61aecc99-FR-4",
+          "target": "seed-example-a687a7b8-d95b-4d5c-a667-6a9e61aecc99-AC-4.1"
+        }
+      ]
+    },
+    "390802f0-47d0-4362-b870-2345c2124fad": {
+      "nodes": [
+        {
+          "id": "seed-rule-390802f0-47d0-4362-b870-2345c2124fad-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Reserve Class Seat, producing the Class Seat Reserved domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-390802f0-47d0-4362-b870-2345c2124fad-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Member selects a class with an open seat",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Reserve Class Seat",
+              "then": "Class Seat Reserved"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-390802f0-47d0-4362-b870-2345c2124fad-FR-1-seed-example-390802f0-47d0-4362-b870-2345c2124fad-AC-1.1",
+          "source": "seed-rule-390802f0-47d0-4362-b870-2345c2124fad-FR-1",
+          "target": "seed-example-390802f0-47d0-4362-b870-2345c2124fad-AC-1.1"
+        }
+      ]
+    },
+    "06e78563-ea15-4533-9304-5c45158311a1": {
+      "nodes": [
+        {
+          "id": "seed-rule-06e78563-ea15-4533-9304-5c45158311a1-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Booking Processor, producing the Class Booking Created domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-06e78563-ea15-4533-9304-5c45158311a1-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Reserved seat is converted into a confirmed booking",
+            "scenario": {
+              "given": "Class Seat Reserved",
+              "when": "Create Class Booking",
+              "then": "Class Booking Created"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-06e78563-ea15-4533-9304-5c45158311a1-FR-2-seed-example-06e78563-ea15-4533-9304-5c45158311a1-AC-2.1",
+          "source": "seed-rule-06e78563-ea15-4533-9304-5c45158311a1-FR-2",
+          "target": "seed-example-06e78563-ea15-4533-9304-5c45158311a1-AC-2.1"
+        }
+      ]
+    },
+    "accc3a08-31e8-4f66-8485-4d4a0ea36683": {
+      "nodes": [
+        {
+          "id": "seed-rule-accc3a08-31e8-4f66-8485-4d4a0ea36683-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Capacity Tracker, producing the Class Capacity Updated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-accc3a08-31e8-4f66-8485-4d4a0ea36683-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Capacity Tracker",
+              "then": "Class Capacity Updated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-accc3a08-31e8-4f66-8485-4d4a0ea36683-FR-3-seed-example-accc3a08-31e8-4f66-8485-4d4a0ea36683-AC-3.1",
+          "source": "seed-rule-accc3a08-31e8-4f66-8485-4d4a0ea36683-FR-3",
+          "target": "seed-example-accc3a08-31e8-4f66-8485-4d4a0ea36683-AC-3.1"
+        }
+      ]
+    },
+    "cf7807a7-bf77-41c7-a701-6074792cfd98": {
+      "nodes": [
+        {
+          "id": "seed-rule-cf7807a7-bf77-41c7-a701-6074792cfd98-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Capacity Guard, producing the Class Booking Rejected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-cf7807a7-bf77-41c7-a701-6074792cfd98-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Capacity Guard",
+              "then": "Class Booking Rejected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-cf7807a7-bf77-41c7-a701-6074792cfd98-FR-4-seed-example-cf7807a7-bf77-41c7-a701-6074792cfd98-AC-4.1",
+          "source": "seed-rule-cf7807a7-bf77-41c7-a701-6074792cfd98-FR-4",
+          "target": "seed-example-cf7807a7-bf77-41c7-a701-6074792cfd98-AC-4.1"
+        }
+      ]
+    },
+    "1b9211d8-bc61-4725-ae4e-37a92c56cf33": {
+      "nodes": [
+        {
+          "id": "seed-rule-1b9211d8-bc61-4725-ae4e-37a92c56cf33-FR-5",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Membership Guard, producing the Booking Rejected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-1b9211d8-bc61-4725-ae4e-37a92c56cf33-AC-5.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-5.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Membership Guard",
+              "then": "Booking Rejected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-1b9211d8-bc61-4725-ae4e-37a92c56cf33-FR-5-seed-example-1b9211d8-bc61-4725-ae4e-37a92c56cf33-AC-5.1",
+          "source": "seed-rule-1b9211d8-bc61-4725-ae4e-37a92c56cf33-FR-5",
+          "target": "seed-example-1b9211d8-bc61-4725-ae4e-37a92c56cf33-AC-5.1"
+        }
+      ]
+    },
+    "fa6d4510-b98f-4264-ae67-613c67b34584": {
+      "nodes": [
+        {
+          "id": "seed-rule-fa6d4510-b98f-4264-ae67-613c67b34584-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Cancel Class Booking, producing the Class Booking Cancelled domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-fa6d4510-b98f-4264-ae67-613c67b34584-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Cancel Class Booking",
+              "then": "Class Booking Cancelled"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-fa6d4510-b98f-4264-ae67-613c67b34584-FR-1-seed-example-fa6d4510-b98f-4264-ae67-613c67b34584-AC-1.1",
+          "source": "seed-rule-fa6d4510-b98f-4264-ae67-613c67b34584-FR-1",
+          "target": "seed-example-fa6d4510-b98f-4264-ae67-613c67b34584-AC-1.1"
+        }
+      ]
+    },
+    "855e5fdf-9c80-4541-b0bb-c74e4847383e": {
+      "nodes": [
+        {
+          "id": "seed-rule-855e5fdf-9c80-4541-b0bb-c74e4847383e-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Waitlist Manager, producing the Waiting List Promoted domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-855e5fdf-9c80-4541-b0bb-c74e4847383e-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Waitlist Manager",
+              "then": "Waiting List Promoted"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-855e5fdf-9c80-4541-b0bb-c74e4847383e-FR-2-seed-example-855e5fdf-9c80-4541-b0bb-c74e4847383e-AC-2.1",
+          "source": "seed-rule-855e5fdf-9c80-4541-b0bb-c74e4847383e-FR-2",
+          "target": "seed-example-855e5fdf-9c80-4541-b0bb-c74e4847383e-AC-2.1"
+        }
+      ]
+    },
+    "fb194626-5685-488e-82a2-641875d2fe64": {
+      "nodes": [
+        {
+          "id": "seed-rule-fb194626-5685-488e-82a2-641875d2fe64-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Complete Class, producing the Class Completed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-fb194626-5685-488e-82a2-641875d2fe64-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Complete Class",
+              "then": "Class Completed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-fb194626-5685-488e-82a2-641875d2fe64-FR-1-seed-example-fb194626-5685-488e-82a2-641875d2fe64-AC-1.1",
+          "source": "seed-rule-fb194626-5685-488e-82a2-641875d2fe64-FR-1",
+          "target": "seed-example-fb194626-5685-488e-82a2-641875d2fe64-AC-1.1"
+        }
+      ]
+    },
+    "6d17ee80-6237-4c45-9c60-944817761272": {
+      "nodes": [
+        {
+          "id": "seed-rule-6d17ee80-6237-4c45-9c60-944817761272-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Attendance Tracker, producing the Attendance Recorded domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-6d17ee80-6237-4c45-9c60-944817761272-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Attendance Tracker",
+              "then": "Attendance Recorded"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-6d17ee80-6237-4c45-9c60-944817761272-FR-2-seed-example-6d17ee80-6237-4c45-9c60-944817761272-AC-2.1",
+          "source": "seed-rule-6d17ee80-6237-4c45-9c60-944817761272-FR-2",
+          "target": "seed-example-6d17ee80-6237-4c45-9c60-944817761272-AC-2.1"
+        }
+      ]
+    },
+    "2e18547f-90db-49fc-b2a6-a5bea4aa62b3": {
+      "nodes": [
+        {
+          "id": "seed-rule-2e18547f-90db-49fc-b2a6-a5bea4aa62b3-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Record Sale, producing the Product Sold domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-2e18547f-90db-49fc-b2a6-a5bea4aa62b3-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Front desk records a retail sale that consumes stock",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Record Sale",
+              "then": "Product Sold"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-2e18547f-90db-49fc-b2a6-a5bea4aa62b3-FR-1-seed-example-2e18547f-90db-49fc-b2a6-a5bea4aa62b3-AC-1.1",
+          "source": "seed-rule-2e18547f-90db-49fc-b2a6-a5bea4aa62b3-FR-1",
+          "target": "seed-example-2e18547f-90db-49fc-b2a6-a5bea4aa62b3-AC-1.1"
+        }
+      ]
+    },
+    "b2ff42df-3ff7-4652-9ce5-bced0d92475e": {
+      "nodes": [
+        {
+          "id": "seed-rule-b2ff42df-3ff7-4652-9ce5-bced0d92475e-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Inventory Tracker, producing the Inventory Reduced domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-b2ff42df-3ff7-4652-9ce5-bced0d92475e-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Inventory Tracker",
+              "then": "Inventory Reduced"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-b2ff42df-3ff7-4652-9ce5-bced0d92475e-FR-2-seed-example-b2ff42df-3ff7-4652-9ce5-bced0d92475e-AC-2.1",
+          "source": "seed-rule-b2ff42df-3ff7-4652-9ce5-bced0d92475e-FR-2",
+          "target": "seed-example-b2ff42df-3ff7-4652-9ce5-bced0d92475e-AC-2.1"
+        }
+      ]
+    },
+    "59539bee-993a-4b88-a76f-3ba9576af4d1": {
+      "nodes": [
+        {
+          "id": "seed-rule-59539bee-993a-4b88-a76f-3ba9576af4d1-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Reorder Assistant, producing the Purchase Order Suggested domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-59539bee-993a-4b88-a76f-3ba9576af4d1-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Reorder Assistant",
+              "then": "Purchase Order Suggested"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-59539bee-993a-4b88-a76f-3ba9576af4d1-FR-4-seed-example-59539bee-993a-4b88-a76f-3ba9576af4d1-AC-4.1",
+          "source": "seed-rule-59539bee-993a-4b88-a76f-3ba9576af4d1-FR-4",
+          "target": "seed-example-59539bee-993a-4b88-a76f-3ba9576af4d1-AC-4.1"
+        }
+      ]
+    },
+    "8966a953-01c7-437d-95ca-7c9039136bdf": {
+      "nodes": [
+        {
+          "id": "seed-rule-8966a953-01c7-437d-95ca-7c9039136bdf-FR-5",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Reorder Guard, producing the Reorder Suppressed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-8966a953-01c7-437d-95ca-7c9039136bdf-AC-5.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-5.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Reorder Guard",
+              "then": "Reorder Suppressed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-8966a953-01c7-437d-95ca-7c9039136bdf-FR-5-seed-example-8966a953-01c7-437d-95ca-7c9039136bdf-AC-5.1",
+          "source": "seed-rule-8966a953-01c7-437d-95ca-7c9039136bdf-FR-5",
+          "target": "seed-example-8966a953-01c7-437d-95ca-7c9039136bdf-AC-5.1"
+        }
+      ]
+    },
+    "39875d23-19d2-4e26-ad7b-cdeb22d61cbb": {
+      "nodes": [
+        {
+          "id": "seed-rule-39875d23-19d2-4e26-ad7b-cdeb22d61cbb-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Receive Stock, producing the Stock Received domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-39875d23-19d2-4e26-ad7b-cdeb22d61cbb-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Receive Stock",
+              "then": "Stock Received"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-39875d23-19d2-4e26-ad7b-cdeb22d61cbb-FR-1-seed-example-39875d23-19d2-4e26-ad7b-cdeb22d61cbb-AC-1.1",
+          "source": "seed-rule-39875d23-19d2-4e26-ad7b-cdeb22d61cbb-FR-1",
+          "target": "seed-example-39875d23-19d2-4e26-ad7b-cdeb22d61cbb-AC-1.1"
+        }
+      ]
+    },
+    "cae60f7d-2287-4816-b9ca-f4cbbcafed57": {
+      "nodes": [
+        {
+          "id": "seed-rule-cae60f7d-2287-4816-b9ca-f4cbbcafed57-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Inventory Tracker, producing the Inventory Updated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-cae60f7d-2287-4816-b9ca-f4cbbcafed57-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Inventory Tracker",
+              "then": "Inventory Updated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-cae60f7d-2287-4816-b9ca-f4cbbcafed57-FR-2-seed-example-cae60f7d-2287-4816-b9ca-f4cbbcafed57-AC-2.1",
+          "source": "seed-rule-cae60f7d-2287-4816-b9ca-f4cbbcafed57-FR-2",
+          "target": "seed-example-cae60f7d-2287-4816-b9ca-f4cbbcafed57-AC-2.1"
+        }
+      ]
+    },
+    "c43f07e7-dfd5-4be5-9d02-b4fd5dd8b3ad": {
+      "nodes": [
+        {
+          "id": "seed-rule-c43f07e7-dfd5-4be5-9d02-b4fd5dd8b3ad-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Hours Calculator, producing the Worked Hours Calculated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-c43f07e7-dfd5-4be5-9d02-b4fd5dd8b3ad-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Hours Calculator",
+              "then": "Worked Hours Calculated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-c43f07e7-dfd5-4be5-9d02-b4fd5dd8b3ad-FR-1-seed-example-c43f07e7-dfd5-4be5-9d02-b4fd5dd8b3ad-AC-1.1",
+          "source": "seed-rule-c43f07e7-dfd5-4be5-9d02-b4fd5dd8b3ad-FR-1",
+          "target": "seed-example-c43f07e7-dfd5-4be5-9d02-b4fd5dd8b3ad-AC-1.1"
+        }
+      ]
+    },
+    "39fceb30-2313-451e-82ff-5f3186b1c5b7": {
+      "nodes": [
+        {
+          "id": "seed-rule-39fceb30-2313-451e-82ff-5f3186b1c5b7-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Start Staff Shift, producing the Staff Shift Started domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-39fceb30-2313-451e-82ff-5f3186b1c5b7-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Employee clocks in for a scheduled shift",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Start Staff Shift",
+              "then": "Staff Shift Started"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-39fceb30-2313-451e-82ff-5f3186b1c5b7-FR-2-seed-example-39fceb30-2313-451e-82ff-5f3186b1c5b7-AC-2.1",
+          "source": "seed-rule-39fceb30-2313-451e-82ff-5f3186b1c5b7-FR-2",
+          "target": "seed-example-39fceb30-2313-451e-82ff-5f3186b1c5b7-AC-2.1"
+        }
+      ]
+    },
+    "e4ceb51d-9554-4c9a-ae78-cfcd2594dc81": {
+      "nodes": [
+        {
+          "id": "seed-rule-e4ceb51d-9554-4c9a-ae78-cfcd2594dc81-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support End Shift, producing the Staff Shift Ended domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-e4ceb51d-9554-4c9a-ae78-cfcd2594dc81-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Employee clocks out at the end of a shift",
+            "scenario": {
+              "given": "Staff Shift Started",
+              "when": "End Shift",
+              "then": "Staff Shift Ended"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-e4ceb51d-9554-4c9a-ae78-cfcd2594dc81-FR-3-seed-example-e4ceb51d-9554-4c9a-ae78-cfcd2594dc81-AC-3.1",
+          "source": "seed-rule-e4ceb51d-9554-4c9a-ae78-cfcd2594dc81-FR-3",
+          "target": "seed-example-e4ceb51d-9554-4c9a-ae78-cfcd2594dc81-AC-3.1"
+        }
+      ]
+    },
+    "144d46f3-647a-4dca-8e77-3be356039b72": {
+      "nodes": [
+        {
+          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Shift Guard, producing the Shift End Rejected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Shift Guard",
+              "then": "Shift End Rejected"
+            }
+          }
+        },
+        {
+          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6",
+          "type": "exampleMap",
+          "position": {
+            "x": 120,
+            "y": 80
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Shift Guard, producing the Duplicate Shift Start Detected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 400,
+            "y": 260
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-6.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Shift Guard",
+              "then": "Duplicate Shift Start Detected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-4-seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-4.1",
+          "source": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-4",
+          "target": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-4.1"
+        },
+        {
+          "id": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6-seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1",
+          "source": "seed-rule-144d46f3-647a-4dca-8e77-3be356039b72-FR-6",
+          "target": "seed-example-144d46f3-647a-4dca-8e77-3be356039b72-AC-6.1"
+        }
+      ]
+    },
+    "7d0d6111-a187-4c18-8fa6-3cb89e1f6307": {
+      "nodes": [
+        {
+          "id": "seed-rule-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-FR-5",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Schedule Guard, producing the Shift Start Rejected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-AC-5.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-5.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Schedule Guard",
+              "then": "Shift Start Rejected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-FR-5-seed-example-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-AC-5.1",
+          "source": "seed-rule-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-FR-5",
+          "target": "seed-example-7d0d6111-a187-4c18-8fa6-3cb89e1f6307-AC-5.1"
+        }
+      ]
+    },
+    "bbbf8d34-9461-4ad5-95e3-50404583b2fe": {
+      "nodes": [
+        {
+          "id": "seed-rule-bbbf8d34-9461-4ad5-95e3-50404583b2fe-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Payslip Generator, producing the Payslip Created domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-bbbf8d34-9461-4ad5-95e3-50404583b2fe-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Payslip Generator",
+              "then": "Payslip Created"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-bbbf8d34-9461-4ad5-95e3-50404583b2fe-FR-1-seed-example-bbbf8d34-9461-4ad5-95e3-50404583b2fe-AC-1.1",
+          "source": "seed-rule-bbbf8d34-9461-4ad5-95e3-50404583b2fe-FR-1",
+          "target": "seed-example-bbbf8d34-9461-4ad5-95e3-50404583b2fe-AC-1.1"
+        }
+      ]
+    },
+    "4c6d4ccc-2740-4481-97a9-4ee6d47d6904": {
+      "nodes": [
+        {
+          "id": "seed-rule-4c6d4ccc-2740-4481-97a9-4ee6d47d6904-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Generate Payroll, producing the Payroll Generated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-4c6d4ccc-2740-4481-97a9-4ee6d47d6904-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Finance initiates payroll after the pay period ends",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Generate Payroll",
+              "then": "Payroll Generated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-4c6d4ccc-2740-4481-97a9-4ee6d47d6904-FR-2-seed-example-4c6d4ccc-2740-4481-97a9-4ee6d47d6904-AC-2.1",
+          "source": "seed-rule-4c6d4ccc-2740-4481-97a9-4ee6d47d6904-FR-2",
+          "target": "seed-example-4c6d4ccc-2740-4481-97a9-4ee6d47d6904-AC-2.1"
+        }
+      ]
+    },
+    "85673a99-2859-4ba2-9298-de5b51507670": {
+      "nodes": [
+        {
+          "id": "seed-rule-85673a99-2859-4ba2-9298-de5b51507670-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Timesheet Guard, producing the Payroll Calculation Failed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-85673a99-2859-4ba2-9298-de5b51507670-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Timesheet Guard",
+              "then": "Payroll Calculation Failed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-85673a99-2859-4ba2-9298-de5b51507670-FR-3-seed-example-85673a99-2859-4ba2-9298-de5b51507670-AC-3.1",
+          "source": "seed-rule-85673a99-2859-4ba2-9298-de5b51507670-FR-3",
+          "target": "seed-example-85673a99-2859-4ba2-9298-de5b51507670-AC-3.1"
+        }
+      ]
+    },
+    "6ed75590-6d1d-42d0-adf5-9272c6dba87e": {
+      "nodes": [
+        {
+          "id": "seed-rule-6ed75590-6d1d-42d0-adf5-9272c6dba87e-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Generate Monthly Report, producing the Monthly Report Generated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-6ed75590-6d1d-42d0-adf5-9272c6dba87e-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Manager requests the monthly business report",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Generate Monthly Report",
+              "then": "Monthly Report Generated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-6ed75590-6d1d-42d0-adf5-9272c6dba87e-FR-1-seed-example-6ed75590-6d1d-42d0-adf5-9272c6dba87e-AC-1.1",
+          "source": "seed-rule-6ed75590-6d1d-42d0-adf5-9272c6dba87e-FR-1",
+          "target": "seed-example-6ed75590-6d1d-42d0-adf5-9272c6dba87e-AC-1.1"
+        }
+      ]
+    },
+    "44806edd-adba-4911-aec4-487d6e28855b": {
+      "nodes": [
+        {
+          "id": "seed-rule-44806edd-adba-4911-aec4-487d6e28855b-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Data Guard, producing the Report Generation Failed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-44806edd-adba-4911-aec4-487d6e28855b-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Data Guard",
+              "then": "Report Generation Failed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-44806edd-adba-4911-aec4-487d6e28855b-FR-2-seed-example-44806edd-adba-4911-aec4-487d6e28855b-AC-2.1",
+          "source": "seed-rule-44806edd-adba-4911-aec4-487d6e28855b-FR-2",
+          "target": "seed-example-44806edd-adba-4911-aec4-487d6e28855b-AC-2.1"
+        }
+      ]
+    },
+    "a3668550-0c8e-41db-8580-e05c11dbad1d": {
+      "nodes": [
+        {
+          "id": "seed-rule-a3668550-0c8e-41db-8580-e05c11dbad1d-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Log Complaint, producing the Complaint Logged domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-a3668550-0c8e-41db-8580-e05c11dbad1d-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Receptionist logs a member's equipment complaint",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Log Complaint",
+              "then": "Complaint Logged"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-a3668550-0c8e-41db-8580-e05c11dbad1d-FR-1-seed-example-a3668550-0c8e-41db-8580-e05c11dbad1d-AC-1.1",
+          "source": "seed-rule-a3668550-0c8e-41db-8580-e05c11dbad1d-FR-1",
+          "target": "seed-example-a3668550-0c8e-41db-8580-e05c11dbad1d-AC-1.1"
+        }
+      ]
+    },
+    "34871f78-6303-4b08-873f-15154e61c005": {
+      "nodes": [
+        {
+          "id": "seed-rule-34871f78-6303-4b08-873f-15154e61c005-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Complaint Router, producing the Complaint Assigned domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-34871f78-6303-4b08-873f-15154e61c005-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Complaint Router",
+              "then": "Complaint Assigned"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-34871f78-6303-4b08-873f-15154e61c005-FR-2-seed-example-34871f78-6303-4b08-873f-15154e61c005-AC-2.1",
+          "source": "seed-rule-34871f78-6303-4b08-873f-15154e61c005-FR-2",
+          "target": "seed-example-34871f78-6303-4b08-873f-15154e61c005-AC-2.1"
+        }
+      ]
+    },
+    "19020553-84a6-48e1-8624-d0b3f5f4dfbd": {
+      "nodes": [
+        {
+          "id": "seed-rule-19020553-84a6-48e1-8624-d0b3f5f4dfbd-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Resolve Complaint, producing the Complaint Resolved domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-19020553-84a6-48e1-8624-d0b3f5f4dfbd-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Resolve Complaint",
+              "then": "Complaint Resolved"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-19020553-84a6-48e1-8624-d0b3f5f4dfbd-FR-3-seed-example-19020553-84a6-48e1-8624-d0b3f5f4dfbd-AC-3.1",
+          "source": "seed-rule-19020553-84a6-48e1-8624-d0b3f5f4dfbd-FR-3",
+          "target": "seed-example-19020553-84a6-48e1-8624-d0b3f5f4dfbd-AC-3.1"
+        }
+      ]
+    },
+    "93146fb3-fceb-45f9-9e81-0214548cfcaa": {
+      "nodes": [
+        {
+          "id": "seed-rule-93146fb3-fceb-45f9-9e81-0214548cfcaa-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Notifier, producing the Member Notified domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-93146fb3-fceb-45f9-9e81-0214548cfcaa-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Notifier",
+              "then": "Member Notified"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-93146fb3-fceb-45f9-9e81-0214548cfcaa-FR-4-seed-example-93146fb3-fceb-45f9-9e81-0214548cfcaa-AC-4.1",
+          "source": "seed-rule-93146fb3-fceb-45f9-9e81-0214548cfcaa-FR-4",
+          "target": "seed-example-93146fb3-fceb-45f9-9e81-0214548cfcaa-AC-4.1"
+        }
+      ]
+    },
+    "4da02196-63f6-4586-926f-2de43a2baf72": {
+      "nodes": [
+        {
+          "id": "seed-rule-4da02196-63f6-4586-926f-2de43a2baf72-FR-5",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Duplicate Guard, producing the Duplicate Complaint Detected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-4da02196-63f6-4586-926f-2de43a2baf72-AC-5.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-5.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Duplicate Guard",
+              "then": "Duplicate Complaint Detected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-4da02196-63f6-4586-926f-2de43a2baf72-FR-5-seed-example-4da02196-63f6-4586-926f-2de43a2baf72-AC-5.1",
+          "source": "seed-rule-4da02196-63f6-4586-926f-2de43a2baf72-FR-5",
+          "target": "seed-example-4da02196-63f6-4586-926f-2de43a2baf72-AC-5.1"
+        }
+      ]
+    },
+    "25459aac-227e-4cf5-a6f4-076aedfe20ad": {
+      "nodes": [
+        {
+          "id": "seed-rule-25459aac-227e-4cf5-a6f4-076aedfe20ad-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Maintenance Requester, producing the Maintenance Request Created domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-25459aac-227e-4cf5-a6f4-076aedfe20ad-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "A logged complaint is escalated into a maintenance request",
+            "scenario": {
+              "given": "Complaint Logged",
+              "when": "Create Maintenance Request",
+              "then": "Maintenance Request Created"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-25459aac-227e-4cf5-a6f4-076aedfe20ad-FR-1-seed-example-25459aac-227e-4cf5-a6f4-076aedfe20ad-AC-1.1",
+          "source": "seed-rule-25459aac-227e-4cf5-a6f4-076aedfe20ad-FR-1",
+          "target": "seed-example-25459aac-227e-4cf5-a6f4-076aedfe20ad-AC-1.1"
+        }
+      ]
+    },
+    "7f1fde35-02d4-488b-8dd5-ba1252d78029": {
+      "nodes": [
+        {
+          "id": "seed-rule-7f1fde35-02d4-488b-8dd5-ba1252d78029-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Maintenance Scheduler, producing the Maintenance Due Detected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-7f1fde35-02d4-488b-8dd5-ba1252d78029-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Daily check finds equipment past its maintenance interval",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Evaluate Maintenance Schedule",
+              "then": "Maintenance Due Detected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-7f1fde35-02d4-488b-8dd5-ba1252d78029-FR-1-seed-example-7f1fde35-02d4-488b-8dd5-ba1252d78029-AC-1.1",
+          "source": "seed-rule-7f1fde35-02d4-488b-8dd5-ba1252d78029-FR-1",
+          "target": "seed-example-7f1fde35-02d4-488b-8dd5-ba1252d78029-AC-1.1"
+        }
+      ]
+    },
+    "37fb5054-1d0d-472c-9da2-944645951e33": {
+      "nodes": [
+        {
+          "id": "seed-rule-37fb5054-1d0d-472c-9da2-944645951e33-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Work Order Creator, producing the Maintenance Work Order Created domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-37fb5054-1d0d-472c-9da2-944645951e33-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "A detected maintenance need becomes a work order",
+            "scenario": {
+              "given": "Maintenance Due Detected",
+              "when": "Create Maintenance Work Order",
+              "then": "Maintenance Work Order Created"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-37fb5054-1d0d-472c-9da2-944645951e33-FR-2-seed-example-37fb5054-1d0d-472c-9da2-944645951e33-AC-2.1",
+          "source": "seed-rule-37fb5054-1d0d-472c-9da2-944645951e33-FR-2",
+          "target": "seed-example-37fb5054-1d0d-472c-9da2-944645951e33-AC-2.1"
+        }
+      ]
+    },
+    "5782e5bb-916b-4f88-bdd5-0cd4e3bac6a4": {
+      "nodes": [
+        {
+          "id": "seed-rule-5782e5bb-916b-4f88-bdd5-0cd4e3bac6a4-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Duplicate Guard, producing the Maintenance Request Ignored domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-5782e5bb-916b-4f88-bdd5-0cd4e3bac6a4-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Duplicate Guard",
+              "then": "Maintenance Request Ignored"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-5782e5bb-916b-4f88-bdd5-0cd4e3bac6a4-FR-3-seed-example-5782e5bb-916b-4f88-bdd5-0cd4e3bac6a4-AC-3.1",
+          "source": "seed-rule-5782e5bb-916b-4f88-bdd5-0cd4e3bac6a4-FR-3",
+          "target": "seed-example-5782e5bb-916b-4f88-bdd5-0cd4e3bac6a4-AC-3.1"
+        }
+      ]
+    },
+    "f608be1f-9567-404c-83fb-666350735265": {
+      "nodes": [
+        {
+          "id": "seed-rule-f608be1f-9567-404c-83fb-666350735265-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Equipment Tracker, producing the Equipment Marked Out Of Service domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-f608be1f-9567-404c-83fb-666350735265-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Equipment Tracker",
+              "then": "Equipment Marked Out Of Service"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-f608be1f-9567-404c-83fb-666350735265-FR-1-seed-example-f608be1f-9567-404c-83fb-666350735265-AC-1.1",
+          "source": "seed-rule-f608be1f-9567-404c-83fb-666350735265-FR-1",
+          "target": "seed-example-f608be1f-9567-404c-83fb-666350735265-AC-1.1"
+        }
+      ]
+    },
+    "70e83c7f-3236-495d-906f-9c497e80186d": {
+      "nodes": [
+        {
+          "id": "seed-rule-70e83c7f-3236-495d-906f-9c497e80186d-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Complete Maintenance, producing the Maintenance Completed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-70e83c7f-3236-495d-906f-9c497e80186d-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Complete Maintenance",
+              "then": "Maintenance Completed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-70e83c7f-3236-495d-906f-9c497e80186d-FR-2-seed-example-70e83c7f-3236-495d-906f-9c497e80186d-AC-2.1",
+          "source": "seed-rule-70e83c7f-3236-495d-906f-9c497e80186d-FR-2",
+          "target": "seed-example-70e83c7f-3236-495d-906f-9c497e80186d-AC-2.1"
+        }
+      ]
+    },
+    "e1ff5457-20ba-4350-94e4-ff0f0e8efdbe": {
+      "nodes": [
+        {
+          "id": "seed-rule-e1ff5457-20ba-4350-94e4-ff0f0e8efdbe-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Service Tracker, producing the Equipment Returned To Service domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-e1ff5457-20ba-4350-94e4-ff0f0e8efdbe-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Technician closes a completed work order",
+            "scenario": {
+              "given": "Maintenance Completed",
+              "when": "Return Equipment To Service",
+              "then": "Equipment Returned To Service"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-e1ff5457-20ba-4350-94e4-ff0f0e8efdbe-FR-3-seed-example-e1ff5457-20ba-4350-94e4-ff0f0e8efdbe-AC-3.1",
+          "source": "seed-rule-e1ff5457-20ba-4350-94e4-ff0f0e8efdbe-FR-3",
+          "target": "seed-example-e1ff5457-20ba-4350-94e4-ff0f0e8efdbe-AC-3.1"
+        }
+      ]
+    },
+    "0efc9948-9982-40f2-90d8-e7b56d377a7d": {
+      "nodes": [
+        {
+          "id": "seed-rule-0efc9948-9982-40f2-90d8-e7b56d377a7d-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Repair Guard, producing the Maintenance Failed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-0efc9948-9982-40f2-90d8-e7b56d377a7d-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Repair Guard",
+              "then": "Maintenance Failed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-0efc9948-9982-40f2-90d8-e7b56d377a7d-FR-4-seed-example-0efc9948-9982-40f2-90d8-e7b56d377a7d-AC-4.1",
+          "source": "seed-rule-0efc9948-9982-40f2-90d8-e7b56d377a7d-FR-4",
+          "target": "seed-example-0efc9948-9982-40f2-90d8-e7b56d377a7d-AC-4.1"
+        }
+      ]
+    },
+    "b01ac7f7-d321-4735-8edc-be45e3c10a19": {
+      "nodes": [
+        {
+          "id": "seed-rule-b01ac7f7-d321-4735-8edc-be45e3c10a19-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Book Personal Training Session, producing the Personal Training Booked domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-b01ac7f7-d321-4735-8edc-be45e3c10a19-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Book Personal Training Session",
+              "then": "Personal Training Booked"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-b01ac7f7-d321-4735-8edc-be45e3c10a19-FR-1-seed-example-b01ac7f7-d321-4735-8edc-be45e3c10a19-AC-1.1",
+          "source": "seed-rule-b01ac7f7-d321-4735-8edc-be45e3c10a19-FR-1",
+          "target": "seed-example-b01ac7f7-d321-4735-8edc-be45e3c10a19-AC-1.1"
+        }
+      ]
+    },
+    "c3cb8fa7-2243-40fd-8318-496823ea29cb": {
+      "nodes": [
+        {
+          "id": "seed-rule-c3cb8fa7-2243-40fd-8318-496823ea29cb-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Availability Manager, producing the Trainer Availability Reserved domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-c3cb8fa7-2243-40fd-8318-496823ea29cb-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Booking confirmation triggers reserve trainer availability",
+            "scenario": {
+              "given": "Personal Training Booked",
+              "when": "Reserve Trainer Availability",
+              "then": "Trainer Availability Reserved"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-c3cb8fa7-2243-40fd-8318-496823ea29cb-FR-2-seed-example-c3cb8fa7-2243-40fd-8318-496823ea29cb-AC-2.1",
+          "source": "seed-rule-c3cb8fa7-2243-40fd-8318-496823ea29cb-FR-2",
+          "target": "seed-example-c3cb8fa7-2243-40fd-8318-496823ea29cb-AC-2.1"
+        }
+      ]
+    },
+    "8818eed0-2788-458e-8000-35a2cc8a3ed3": {
+      "nodes": [
+        {
+          "id": "seed-rule-8818eed0-2788-458e-8000-35a2cc8a3ed3-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Notification Service, producing the Booking Confirmation Sent domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-8818eed0-2788-458e-8000-35a2cc8a3ed3-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Booking confirmation triggers send booking confirmation",
+            "scenario": {
+              "given": "Personal Training Booked",
+              "when": "Send Booking Confirmation",
+              "then": "Booking Confirmation Sent"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-8818eed0-2788-458e-8000-35a2cc8a3ed3-FR-3-seed-example-8818eed0-2788-458e-8000-35a2cc8a3ed3-AC-3.1",
+          "source": "seed-rule-8818eed0-2788-458e-8000-35a2cc8a3ed3-FR-3",
+          "target": "seed-example-8818eed0-2788-458e-8000-35a2cc8a3ed3-AC-3.1"
+        }
+      ]
+    },
+    "25e20ef7-8465-40bc-a0bc-ee618d1a0bd7": {
+      "nodes": [
+        {
+          "id": "seed-rule-25e20ef7-8465-40bc-a0bc-ee618d1a0bd7-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Calendar Service, producing the Calendar Entry Created domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-25e20ef7-8465-40bc-a0bc-ee618d1a0bd7-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Booking confirmation triggers add session to calendar",
+            "scenario": {
+              "given": "Personal Training Booked",
+              "when": "Add Session To Calendar",
+              "then": "Calendar Entry Created"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-25e20ef7-8465-40bc-a0bc-ee618d1a0bd7-FR-4-seed-example-25e20ef7-8465-40bc-a0bc-ee618d1a0bd7-AC-4.1",
+          "source": "seed-rule-25e20ef7-8465-40bc-a0bc-ee618d1a0bd7-FR-4",
+          "target": "seed-example-25e20ef7-8465-40bc-a0bc-ee618d1a0bd7-AC-4.1"
+        }
+      ]
+    },
+    "ec1326c9-a088-4a12-a9d0-9ee92b54fbc7": {
+      "nodes": [
+        {
+          "id": "seed-rule-ec1326c9-a088-4a12-a9d0-9ee92b54fbc7-FR-5",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Utilization Reporter, producing the Trainer Utilization Report Updated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-ec1326c9-a088-4a12-a9d0-9ee92b54fbc7-AC-5.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Booking confirmation triggers update trainer utilization report",
+            "scenario": {
+              "given": "Personal Training Booked",
+              "when": "Update Trainer Utilization Report",
+              "then": "Trainer Utilization Report Updated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-ec1326c9-a088-4a12-a9d0-9ee92b54fbc7-FR-5-seed-example-ec1326c9-a088-4a12-a9d0-9ee92b54fbc7-AC-5.1",
+          "source": "seed-rule-ec1326c9-a088-4a12-a9d0-9ee92b54fbc7-FR-5",
+          "target": "seed-example-ec1326c9-a088-4a12-a9d0-9ee92b54fbc7-AC-5.1"
+        }
+      ]
+    },
+    "7dffeaee-6d2b-445a-a1dc-de2088a7cdbc": {
+      "nodes": [
+        {
+          "id": "seed-rule-7dffeaee-6d2b-445a-a1dc-de2088a7cdbc-FR-6",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Schedule Tracker, producing the Trainer Schedule Updated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-7dffeaee-6d2b-445a-a1dc-de2088a7cdbc-AC-6.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-6.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Schedule Tracker",
+              "then": "Trainer Schedule Updated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-7dffeaee-6d2b-445a-a1dc-de2088a7cdbc-FR-6-seed-example-7dffeaee-6d2b-445a-a1dc-de2088a7cdbc-AC-6.1",
+          "source": "seed-rule-7dffeaee-6d2b-445a-a1dc-de2088a7cdbc-FR-6",
+          "target": "seed-example-7dffeaee-6d2b-445a-a1dc-de2088a7cdbc-AC-6.1"
+        }
+      ]
+    },
+    "1535cc12-fdfe-4ae9-8046-ec2a0791b90a": {
+      "nodes": [
+        {
+          "id": "seed-rule-1535cc12-fdfe-4ae9-8046-ec2a0791b90a-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Complete Training Session, producing the Personal Training Session Completed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-1535cc12-fdfe-4ae9-8046-ec2a0791b90a-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Trainer marks a scheduled session complete",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Complete Training Session",
+              "then": "Personal Training Session Completed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-1535cc12-fdfe-4ae9-8046-ec2a0791b90a-FR-1-seed-example-1535cc12-fdfe-4ae9-8046-ec2a0791b90a-AC-1.1",
+          "source": "seed-rule-1535cc12-fdfe-4ae9-8046-ec2a0791b90a-FR-1",
+          "target": "seed-example-1535cc12-fdfe-4ae9-8046-ec2a0791b90a-AC-1.1"
+        }
+      ]
+    },
+    "c73ccf58-4b39-469c-839d-abfeedbf1ce7": {
+      "nodes": [
+        {
+          "id": "seed-rule-c73ccf58-4b39-469c-839d-abfeedbf1ce7-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Utilization Tracker, producing the Trainer Utilization Updated domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-c73ccf58-4b39-469c-839d-abfeedbf1ce7-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-2.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Utilization Tracker",
+              "then": "Trainer Utilization Updated"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-c73ccf58-4b39-469c-839d-abfeedbf1ce7-FR-2-seed-example-c73ccf58-4b39-469c-839d-abfeedbf1ce7-AC-2.1",
+          "source": "seed-rule-c73ccf58-4b39-469c-839d-abfeedbf1ce7-FR-2",
+          "target": "seed-example-c73ccf58-4b39-469c-839d-abfeedbf1ce7-AC-2.1"
+        }
+      ]
+    },
+    "1eedcb9e-3f9d-4fee-905f-d27b6b3abaf4": {
+      "nodes": [
+        {
+          "id": "seed-rule-1eedcb9e-3f9d-4fee-905f-d27b6b3abaf4-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Attendance Guard, producing the Personal Training No-Show Recorded domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-1eedcb9e-3f9d-4fee-905f-d27b6b3abaf4-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Attendance Guard",
+              "then": "Personal Training No-Show Recorded"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-1eedcb9e-3f9d-4fee-905f-d27b6b3abaf4-FR-3-seed-example-1eedcb9e-3f9d-4fee-905f-d27b6b3abaf4-AC-3.1",
+          "source": "seed-rule-1eedcb9e-3f9d-4fee-905f-d27b6b3abaf4-FR-3",
+          "target": "seed-example-1eedcb9e-3f9d-4fee-905f-d27b6b3abaf4-AC-3.1"
+        }
+      ]
+    },
+    "73acbcc0-fc27-4c84-8a5e-991783daf5c3": {
+      "nodes": [
+        {
+          "id": "seed-rule-73acbcc0-fc27-4c84-8a5e-991783daf5c3-FR-1",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Revenue Tracker, producing the Revenue Recorded domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-73acbcc0-fc27-4c84-8a5e-991783daf5c3-AC-1.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-1.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Revenue Tracker",
+              "then": "Revenue Recorded"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-73acbcc0-fc27-4c84-8a5e-991783daf5c3-FR-1-seed-example-73acbcc0-fc27-4c84-8a5e-991783daf5c3-AC-1.1",
+          "source": "seed-rule-73acbcc0-fc27-4c84-8a5e-991783daf5c3-FR-1",
+          "target": "seed-example-73acbcc0-fc27-4c84-8a5e-991783daf5c3-AC-1.1"
+        }
+      ]
+    },
+    "8580ba30-2d4f-49da-b555-d9acdf68dadc": {
+      "nodes": [
+        {
+          "id": "seed-rule-8580ba30-2d4f-49da-b555-d9acdf68dadc-FR-2",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System MUST support Record Retail Sale, producing the Retail Sale Completed domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-8580ba30-2d4f-49da-b555-d9acdf68dadc-AC-2.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "Receptionist sells an in-stock retail item",
+            "scenario": {
+              "given": "no precondition recorded on the board",
+              "when": "Record Retail Sale",
+              "then": "Retail Sale Completed"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-8580ba30-2d4f-49da-b555-d9acdf68dadc-FR-2-seed-example-8580ba30-2d4f-49da-b555-d9acdf68dadc-AC-2.1",
+          "source": "seed-rule-8580ba30-2d4f-49da-b555-d9acdf68dadc-FR-2",
+          "target": "seed-example-8580ba30-2d4f-49da-b555-d9acdf68dadc-AC-2.1"
+        }
+      ]
+    },
+    "7dea13a1-37f5-44d3-be24-d76ffc5a323b": {
+      "nodes": [
+        {
+          "id": "seed-rule-7dea13a1-37f5-44d3-be24-d76ffc5a323b-FR-3",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Inventory Tracker, producing the Inventory Reduced domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-7dea13a1-37f5-44d3-be24-d76ffc5a323b-AC-3.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-3.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Inventory Tracker",
+              "then": "Inventory Reduced"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-7dea13a1-37f5-44d3-be24-d76ffc5a323b-FR-3-seed-example-7dea13a1-37f5-44d3-be24-d76ffc5a323b-AC-3.1",
+          "source": "seed-rule-7dea13a1-37f5-44d3-be24-d76ffc5a323b-FR-3",
+          "target": "seed-example-7dea13a1-37f5-44d3-be24-d76ffc5a323b-AC-3.1"
+        }
+      ]
+    },
+    "b815fe5e-15ba-482f-9694-38f10e436275": {
+      "nodes": [
+        {
+          "id": "seed-rule-b815fe5e-15ba-482f-9694-38f10e436275-FR-4",
+          "type": "exampleMap",
+          "position": {
+            "x": 40,
+            "y": 40
+          },
+          "data": {
+            "nodeType": "rule",
+            "label": "System SHOULD support Stock Guard, producing the Sale Rejected domain event(s)"
+          }
+        },
+        {
+          "id": "seed-example-b815fe5e-15ba-482f-9694-38f10e436275-AC-4.1",
+          "type": "exampleMap",
+          "position": {
+            "x": 320,
+            "y": 220
+          },
+          "data": {
+            "nodeType": "example",
+            "label": "AC-4.1",
+            "scenario": {
+              "given": "the preconditions for this step are met",
+              "when": "Stock Guard",
+              "then": "Sale Rejected"
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "seed-rule-b815fe5e-15ba-482f-9694-38f10e436275-FR-4-seed-example-b815fe5e-15ba-482f-9694-38f10e436275-AC-4.1",
+          "source": "seed-rule-b815fe5e-15ba-482f-9694-38f10e436275-FR-4",
+          "target": "seed-example-b815fe5e-15ba-482f-9694-38f10e436275-AC-4.1"
+        }
+      ]
+    }
+  }
 }

@@ -12,7 +12,8 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { ExampleMapNode, type ExampleMapNodeData, type ExampleMapNodeType } from "./ExampleMapNode";
-import { loadExampleMap, saveExampleMap } from "./exampleMapStore";
+import { loadExampleMap, saveExampleMap, hasExampleMap } from "./exampleMapStore";
+import { getSeedExampleMap } from "./loadBoard";
 
 const nodeTypes = { exampleMap: ExampleMapNode };
 
@@ -21,12 +22,24 @@ function newNodeId() {
   return `em-${Date.now()}-${nextId++}`;
 }
 
+// WS2.5: a never-touched slice with real board-derived Rule/Example content
+// (see getSeedExampleMap) opens pre-populated instead of blank — the
+// autosave effect below then persists it on first render exactly as if a
+// human had entered it, so it's editable/deletable like any other card from
+// that point on. A slice with any saved board already, including one a user
+// deliberately emptied, is never re-seeded (hasExampleMap, not "nodes.length
+// === 0", is the check — those two cases look identical to loadExampleMap).
+function getInitialBoard(sliceId: string) {
+  if (hasExampleMap(sliceId)) return loadExampleMap(sliceId);
+  return getSeedExampleMap(sliceId) ?? { nodes: [], edges: [] };
+}
+
 // The caller must remount this component on slice change (key={sliceId}) —
-// state is initialized once from that slice's saved board rather than
-// synchronized via an effect on the sliceId prop.
+// state is initialized once from that slice's saved (or seeded) board
+// rather than synchronized via an effect on the sliceId prop.
 export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: string; sliceLabel: string; onBack: () => void }) {
-  const [nodes, setNodes] = useState<Node[]>(() => loadExampleMap(sliceId).nodes);
-  const [edges, setEdges] = useState<Edge[]>(() => loadExampleMap(sliceId).edges);
+  const [nodes, setNodes] = useState<Node[]>(() => getInitialBoard(sliceId).nodes);
+  const [edges, setEdges] = useState<Edge[]>(() => getInitialBoard(sliceId).edges);
   const [selected, setSelected] = useState<Node | null>(null);
 
   // Persist on every change — spike-level autosave, no explicit save action.

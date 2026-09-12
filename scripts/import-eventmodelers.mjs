@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Import adapter: parses eventmodelers.ai board exports (as transcribed
 // verbatim into requirements.md/research.md by the PowerGym-style build
-// kit) into this canvas's node/edge JSON schema.
+// kit) into this canvas's Layer 1 node/edge schema, plus (WS2.5) a seed
+// Layer 2 Example Map per slice where the source has real rule/example
+// content to pull in.
 //
 // Source shape (from real PowerGym specs, not assumed):
 //   requirements.md "## Event Model Detail (Source of Truth)" section:
@@ -12,6 +14,15 @@
 //     _(from slice: <SliceName>)_
 //     **<ScreenName>** (screen, id `<uuid>`, ...)
 //     Dependencies: → <Command> (COMMAND)
+//   requirements.md "## Functional Requirements" table (seeds a Rule card
+//   per row — confirmed a real, board-derived requirement sentence, not
+//   boilerplate) joined 1:1 to its "## User Stories" Acceptance Criteria
+//   bullet (seeds that Rule's child Example card):
+//     | FR-N | System MUST/SHOULD support <Element>, producing <Event>(s) | Must|Should | AC-N.M |
+//     - AC-N.M: [_<title>_ —] Given <given>, When <when>, Then <then>
+//   requirements.md "## Unresolved Questions" — real content would seed
+//   Question cards, but every one of the 18 real specs checked is exactly
+//   "- None": parsed for real, never fabricated, currently always empty.
 //
 // Usage: node scripts/import-eventmodelers.mjs <specDir> [<specDir> ...] > board.json
 
@@ -25,6 +36,9 @@ const SLICE_RE = /^### Slice: (.+?) \(`([^`]+)`, status: (\S+), type: (\S+)\)$/;
 const ELEMENT_RE = /^\*\*(.+?)\*\* \((command|event|automation\/processor|screen)(?:, id `([^`]+)`)?/;
 const DEP_RE = /^Dependencies: (←|→) (.+?) \((\w+)\)/;
 const SCREEN_CONTEXT_RE = /^_\(from slice: (.+?)\)_$/;
+const AC_RE = /^- (AC-\S+): (?:_(.+?)_ — )?Given (.+?), When (.+?), Then (.+)$/;
+const FR_ROW_RE = /^\|\s*(FR-\d+)\s*\|\s*(.+?)\s*\|\s*(\S+)\s*\|\s*(AC-\S+)\s*\|$/;
+const UNRESOLVED_Q_RE = /^- (.+)$/;
 
 function elementTypeToLane(elementType, sliceType) {
   if (elementType === "screen") return "screen";
@@ -48,6 +62,12 @@ function parseRequirements(text, specId) {
   const edges = [];
   /** @type {Map<string, string>} */
   const sliceIdsByName = new Map();
+  /** Every command/automation/event element's label -> sliceId, regardless
+   * of whether it was kept as a Layer 1 node or skipped as a redundant
+   * AUTOMATION-slice command — an AC's "When <label>" can name either, so
+   * the seed-Example join (buildSeedExampleMaps) needs the full set, not
+   * just the kept nodes. */
+  const elementSliceByLabel = new Map();
   const lines = text.split("\n");
 
   let currentSlice = null;
@@ -73,6 +93,7 @@ function parseRequirements(text, specId) {
       const [, name, elementType, elId] = elMatch;
       const laneId = elementTypeToLane(elementType, currentSlice.type);
       currentElementId = elId ? `${specId}:${elId}` : null;
+      elementSliceByLabel.set(name, currentSlice.id);
       if (laneId && currentElementId) {
         nodes.push({
           id: currentElementId,
@@ -112,7 +133,113 @@ function parseRequirements(text, specId) {
     }
   }
 
-  return { nodes, edges, sliceIdsByName };
+  return { nodes, edges, sliceIdsByName, elementSliceByLabel };
+}
+
+/** Parse every "**Acceptance Criteria:**" bullet across all User Stories:
+ *  `- AC-N.M: _<title>_ — Given <given>, When <when>, Then <then>` (title
+ *  is optional — some ACs omit it and start straight at "Given"). Returns
+ *  one entry per AC line, keyed by its id for the FR join below. */
+function parseAcceptanceCriteria(text) {
+  const byId = new Map();
+  for (const line of text.split("\n")) {
+    const m = line.match(AC_RE);
+    if (m) {
+      const [, acId, title, given, when, then] = m;
+      byId.set(acId, { acId, title: title ?? null, given, when, then });
+    }
+  }
+  return byId;
+}
+
+/** Parse the "## Functional Requirements" table: each row is a real,
+ * board-derived Rule-shaped sentence ("System MUST/SHOULD support X,
+ * producing Y") referencing exactly one Acceptance Criterion — confirmed
+ * 1:1 across all 18 real PowerGym specs, never a comma-separated list. */
+function parseFunctionalRequirements(text) {
+  const rows = [];
+  for (const line of text.split("\n")) {
+    const m = line.match(FR_ROW_RE);
+    if (m) {
+      const [, frId, requirementText, priority, acRef] = m;
+      rows.push({ frId, text: requirementText, priority, acRef });
+    }
+  }
+  return rows;
+}
+
+/** Parse "## Unresolved Questions" — real content if the board export ever
+ * carries any (checked against all 18 current PowerGym specs: every one is
+ * exactly "- None", so this always returns [] today; kept as real parsing,
+ * not dead code, for whenever a spec actually has one). */
+function parseUnresolvedQuestions(text) {
+  const section = text.split(/^## Unresolved Questions$/m)[1];
+  if (!section) return [];
+  const body = section.split(/^## /m)[0];
+  const questions = [];
+  for (const line of body.split("\n")) {
+    const m = line.match(UNRESOLVED_Q_RE);
+    if (m && m[1].trim() !== "None") questions.push(m[1].trim());
+  }
+  return questions;
+}
+
+/** Join Functional Requirements to their Acceptance Criteria and resolve
+ * each to a sliceId via the AC's "When <label>" text, looked up against
+ * every parsed element's label (not just kept Layer 1 nodes) — an
+ * AUTOMATION-type slice's AC names its command, which
+ * `elementTypeToLane` deliberately skips as redundant with the
+ * automation/processor node, so the kept-nodes set alone would miss most
+ * AUTOMATION slices (confirmed: skips every one of them before this fix).
+ * Produces one seed Example
+ * Map board per slice: one Rule node (the FR sentence) with one child
+ * Example (the AC's Given/When/Then) — mirrors exactly what a human would
+ * build by hand in the Example Map UI, so it needs no new schema. Node ids
+ * are deterministic (not Date.now()-based, unlike hand-authored cards) so
+ * re-running this generator produces stable, diffable output. No Question
+ * nodes are seeded: the source's "Unresolved Questions" section has no
+ * per-slice attribution in any real spec (every one is empty anyway — see
+ * parseUnresolvedQuestions), so inventing a slice mapping isn't possible
+ * without guessing. */
+function buildSeedExampleMaps(elementSliceByLabel, frRows, acById) {
+  /** @type {Map<string, { nodes: object[], edges: object[] }>} */
+  const bySlice = new Map();
+
+  for (const fr of frRows) {
+    const ac = acById.get(fr.acRef);
+    if (!ac) {
+      console.error(`[seed] ${fr.frId} references ${fr.acRef}, no matching Acceptance Criteria line found — skipped`);
+      continue;
+    }
+    const sliceId = elementSliceByLabel.get(ac.when);
+    if (!sliceId) {
+      console.error(`[seed] ${fr.acRef}'s "When ${ac.when}" doesn't match any element in the Event Model Detail appendix — skipped`);
+      continue;
+    }
+    if (!bySlice.has(sliceId)) bySlice.set(sliceId, { nodes: [], edges: [] });
+    const board = bySlice.get(sliceId);
+    const ruleId = `seed-rule-${sliceId}-${fr.frId}`;
+    const exampleId = `seed-example-${sliceId}-${ac.acId}`;
+    board.nodes.push({
+      id: ruleId,
+      type: "exampleMap",
+      position: { x: 40 + board.nodes.length * 40, y: 40 + board.nodes.length * 20 },
+      data: { nodeType: "rule", label: fr.text },
+    });
+    board.nodes.push({
+      id: exampleId,
+      type: "exampleMap",
+      position: { x: 40 + board.nodes.length * 40 + 240, y: 40 + board.nodes.length * 20 + 160 },
+      data: {
+        nodeType: "example",
+        label: ac.title ?? ac.acId,
+        scenario: { given: ac.given, when: ac.when, then: ac.then },
+      },
+    });
+    board.edges.push({ id: `${ruleId}-${exampleId}`, source: ruleId, target: exampleId });
+  }
+
+  return Object.fromEntries(bySlice);
 }
 
 /** Parse research.md's UI Reference section for Screen elements + their Dependencies. */
@@ -239,7 +366,7 @@ function importSpec(specDir) {
   const resPath = join(specDir, "research.md");
   if (!existsSync(reqPath)) {
     console.error(`[${specId}] missing requirements.md — skipped`);
-    return { nodes: [], edges: [] };
+    return { nodes: [], edges: [], seedExampleMaps: {} };
   }
   const reqText = readFileSync(reqPath, "utf-8");
   const resText = existsSync(resPath) ? readFileSync(resPath, "utf-8") : "";
@@ -251,7 +378,15 @@ function importSpec(specDir) {
   const explicitEdges = resolveEdges(allNodes, [...req.edges, ...scr.edges], specId);
   const producesEdges = inferProducesEdges(allNodes);
 
-  return { nodes: allNodes, edges: [...explicitEdges, ...producesEdges] };
+  const acById = parseAcceptanceCriteria(reqText);
+  const frRows = parseFunctionalRequirements(reqText);
+  const seedExampleMaps = buildSeedExampleMaps(req.elementSliceByLabel, frRows, acById);
+  const unresolvedQuestions = parseUnresolvedQuestions(reqText);
+  if (unresolvedQuestions.length > 0) {
+    console.error(`[${specId}] ${unresolvedQuestions.length} real Unresolved Question(s) found (unprecedented in current data) — not seeded as Question cards, no per-slice attribution exists in this source format: ${unresolvedQuestions.join(" | ")}`);
+  }
+
+  return { nodes: allNodes, edges: [...explicitEdges, ...producesEdges], seedExampleMaps };
 }
 
 const specDirs = process.argv.slice(2);
@@ -262,11 +397,13 @@ if (specDirs.length === 0) {
 
 let allNodes = [];
 let allEdges = [];
+let allSeedExampleMaps = {};
 for (const dir of specDirs) {
-  const { nodes, edges } = importSpec(dir);
+  const { nodes, edges, seedExampleMaps } = importSpec(dir);
   allNodes = allNodes.concat(nodes);
   allEdges = allEdges.concat(edges);
-  console.error(`[${basename(dir)}] ${nodes.length} nodes, ${edges.length} edges`);
+  allSeedExampleMaps = { ...allSeedExampleMaps, ...seedExampleMaps };
+  console.error(`[${basename(dir)}] ${nodes.length} nodes, ${edges.length} edges, ${Object.keys(seedExampleMaps).length} slice(s) with a seeded Example Map`);
 }
 
 // Dedupe: requirements.md and research.md each independently encode a
@@ -285,4 +422,4 @@ if (dedupedEdges.length < allEdges.length) {
   console.error(`Deduped ${allEdges.length - dedupedEdges.length} duplicate edge(s) (same source/target from both requirements.md and research.md)`);
 }
 
-console.log(JSON.stringify({ nodes: allNodes, edges: dedupedEdges }, null, 2));
+console.log(JSON.stringify({ nodes: allNodes, edges: dedupedEdges, seedExampleMaps: allSeedExampleMaps }, null, 2));
