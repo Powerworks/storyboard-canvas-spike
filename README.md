@@ -34,7 +34,7 @@ Opens the canvas with PowerGym's real "Member Registration" story-arc loaded by 
 - Inline Scenario (Given/When/Then) attachment on any node
 - Import adapter for eventmodelers.ai board exports
 - Read-only MCP server exposing the board
-- Layer 2 Example Mapping: per-slice, free-form canvas of Rule/Example/Question cards, persisted to `localStorage`, with an "Export Board JSON" action for feeding the export adapters below
+- Layer 2 Example Mapping: per-slice, free-form canvas of Rule/Example/Question cards, persisted to `localStorage`, with an "Export Board JSON" action for feeding the export adapters below; reached from the Layer 1 canvas via the sidebar "Slices" list or by double-clicking a slice's node, both showing a Rule/Example/Question count badge (see [the plan](docs/plan.md#phase-5--layer-2-example-mapping-done))
 - Question nodes carry a status (open/answered, with answer text and an ISO timestamp) and a "Mark Answered" toolbar action; missing status is treated as open, so no migration is needed for boards saved before this field existed
 - Export adapter turning a slice's Example Map into a `specifications[]` array for downstream test-generation (`scripts/export-specifications.mjs`) — see [the plan](docs/plan.md) for what's still out of scope (wiring into a mechanical gate, drift detection)
 - Export adapter turning chosen slices' Example Maps into a priced, client-facing scope-of-work Markdown snapshot (`scripts/export-billing-snapshot.mjs`)

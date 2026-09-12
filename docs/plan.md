@@ -34,7 +34,7 @@ Task-queued, skill-routed AI agent that edits the board itself — add/place ele
 
 ### Phase 5 — Layer 2 Example Mapping (done)
 
-Per-slice drill-down (`ExampleMapView`), reached via a "Slices" list in the Layer 1 side panel: Rule (yellow) / Example (green, reusing Layer 1's Given/When/Then scenario shape) / Question (red) cards, free-form React Flow canvas, persisted to `localStorage` per slice (`exampleMapStore.ts`). Examples and Questions must attach to an already-selected Rule, matching the real Example Mapping facilitation method.
+Per-slice drill-down (`ExampleMapView`), reached via a "Slices" list in the Layer 1 side panel or by double-clicking a slice's node on the Layer 1 canvas: Rule (yellow) / Example (green, reusing Layer 1's Given/When/Then scenario shape) / Question (red) cards, free-form React Flow canvas, persisted to `localStorage` per slice (`exampleMapStore.ts`). Examples and Questions must attach to an already-selected Rule, matching the real Example Mapping facilitation method. Both entry points show a per-slice Rule/Example/Question count badge (red if the slice has an open Question) so Layer 2 completeness is visible without opening the board.
 
 ### Phase 6 (stretch) — Loopback / drift detection (not started)
 
