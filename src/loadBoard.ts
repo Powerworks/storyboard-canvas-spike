@@ -93,7 +93,7 @@ export function loadSpec(specId: string): { nodes: Node[]; edges: Edge[] } {
       id: n.id,
       type: "storyboard",
       position: { x, y },
-      data: { label: n.label, laneId: n.laneId } as StoryboardNodeData,
+      data: { label: n.label, laneId: n.laneId, sliceId: n.sliceId } as StoryboardNodeData,
     };
   });
 

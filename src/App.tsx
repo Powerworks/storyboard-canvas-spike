@@ -16,6 +16,7 @@ import { snapYToLane, TOTAL_HEIGHT } from "./lanes";
 import { StoryboardNode, type StoryboardNodeData } from "./StoryboardNode";
 import { listSpecs, loadSpec, listSlices } from "./loadBoard";
 import { ExampleMapView } from "./ExampleMapView";
+import { getExampleMapSummary } from "./exampleMapStore";
 
 const CANVAS_WIDTH = 2400;
 
@@ -37,6 +38,20 @@ export default function App() {
   const [selected, setSelected] = useState<Node | null>(null);
   const [openSliceId, setOpenSliceId] = useState<string | null>(null);
   const slices = listSlices(selectedSpec);
+
+  // Recomputed on every render — including whenever openSliceId flips back
+  // to null (returning from an Example Map edit) — so badges/counts stay
+  // live without a second state-sync mechanism. Plain computation, not
+  // memoized: slice counts here are single/low-digit, not worth the
+  // memoization bookkeeping.
+  const exampleMapSummaries = Object.fromEntries(
+    slices.map((s) => [s.sliceId, getExampleMapSummary(s.sliceId)]),
+  );
+
+  const displayNodes = nodes.map((n) => ({
+    ...n,
+    data: { ...n.data, exampleMapSummary: exampleMapSummaries[(n.data as StoryboardNodeData).sliceId] },
+  }));
 
   const changeSpec = useCallback((specId: string) => {
     setSelectedSpec(specId);
@@ -86,13 +101,14 @@ export default function App() {
       <div style={{ flex: 1, position: "relative", overflow: "auto", minWidth: 0 }}>
         <LaneBackground width={CANVAS_WIDTH} />
         <ReactFlow
-          nodes={nodes}
+          nodes={displayNodes}
           edges={edges}
           nodeTypes={nodeTypes}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onNodeDragStop={onNodeDragStop}
           onNodeClick={(_e, n) => setSelected(n)}
+          onNodeDoubleClick={(_e, n) => setOpenSliceId((n.data as StoryboardNodeData).sliceId)}
           translateExtent={[
             [0, 0],
             [CANVAS_WIDTH, TOTAL_HEIGHT],
@@ -140,9 +156,30 @@ export default function App() {
               <span title={s.label} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {s.label}
               </span>
-              <button style={{ fontSize: 11 }} onClick={() => setOpenSliceId(s.sliceId)}>
-                Example Map &rarr;
-              </button>
+              <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                {(() => {
+                  const summary = exampleMapSummaries[s.sliceId];
+                  if (!summary || (!summary.rules && !summary.examples && !summary.questions)) return null;
+                  return (
+                    <span
+                      title={`${summary.rules} Rule(s), ${summary.examples} Example(s), ${summary.questions} Question(s)`}
+                      style={{
+                        fontSize: 10,
+                        fontWeight: 700,
+                        color: "white",
+                        background: summary.openQuestions ? "#ef4444" : "#3b82f6",
+                        borderRadius: 9,
+                        padding: "1px 6px",
+                      }}
+                    >
+                      R{summary.rules} E{summary.examples} Q{summary.questions}
+                    </span>
+                  );
+                })()}
+                <button style={{ fontSize: 11 }} onClick={() => setOpenSliceId(s.sliceId)}>
+                  Example Map &rarr;
+                </button>
+              </span>
             </div>
           ))}
         </div>
