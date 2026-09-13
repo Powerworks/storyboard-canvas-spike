@@ -18,7 +18,7 @@ Fixed-lane React Flow layout, drag-snap-to-lane, inline Scenario attachment. Val
 
 ### Phase 1 — Import adapter (done)
 
-`scripts/import-eventmodelers.mjs` parses the real board-export markdown format (`requirements.md`'s Event Model Detail section, `research.md`'s UI Reference section) into the canvas's schema. Run against all 18 of PowerGym's real story-arcs: 149 nodes, 84 edges, 0 self-loops.
+`scripts/import-eventmodelers.mjs` parses the real board-export markdown format (`requirements.md`'s Event Model Detail section, `research.md`'s UI Reference section) into the canvas's schema. Run against all 18 of PowerGym's real story-arcs: 149 nodes, 84 edges, 0 self-loops. Also seeds a Layer 2 Example Map per slice (65 of them) from `requirements.md`'s Functional Requirements/Acceptance Criteria, where present — see Phase 5.
 
 ### Phase 2 — Canvas UI wiring (done)
 
@@ -34,7 +34,7 @@ Task-queued, skill-routed AI agent that edits the board itself — add/place ele
 
 ### Phase 5 — Layer 2 Example Mapping (done)
 
-Per-slice drill-down (`ExampleMapView`), reached via a "Slices" list in the Layer 1 side panel or by double-clicking a slice's node on the Layer 1 canvas: Rule (yellow) / Example (green, reusing Layer 1's Given/When/Then scenario shape) / Question (red) cards, free-form React Flow canvas, persisted to `localStorage` per slice (`exampleMapStore.ts`). Examples and Questions must attach to an already-selected Rule, matching the real Example Mapping facilitation method. Both entry points show a per-slice Rule/Example/Question count badge (red if the slice has an open Question) so Layer 2 completeness is visible without opening the board.
+Per-slice drill-down (`ExampleMapView`), reached via a "Slices" list in the Layer 1 side panel or by double-clicking a slice's node on the Layer 1 canvas: Rule (yellow) / Example (green, reusing Layer 1's Given/When/Then scenario shape) / Question (red) cards, free-form React Flow canvas, persisted to `localStorage` per slice (`exampleMapStore.ts`). Examples and Questions must attach to an already-selected Rule, matching the real Example Mapping facilitation method. Both entry points show a per-slice Rule/Example/Question count badge (red if the slice has an open Question) so Layer 2 completeness is visible without opening the board. A slice opened for the first time pre-populates from the import adapter's board-derived seed data (Phase 1) instead of starting blank, where the source had real Rule/Example content; no Question cards are seeded — the source's Unresolved Questions section has no per-slice attribution in any real spec.
 
 ### Phase 6 (stretch) — Loopback / drift detection (not started)
 

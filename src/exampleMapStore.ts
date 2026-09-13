@@ -51,3 +51,12 @@ export function getExampleMapSummary(sliceId: string): ExampleMapSummary {
   }
   return summary;
 }
+
+/** True iff this slice has ever been saved — distinct from `loadExampleMap`
+ * returning an empty board, which is also what a deliberately-cleared slice
+ * looks like. WS2.5's import-seed check needs this distinction: seed once
+ * on a never-touched slice, never re-seed over a user's intentional edits
+ * (including "delete everything"). */
+export function hasExampleMap(sliceId: string): boolean {
+  return localStorage.getItem(STORAGE_PREFIX + sliceId) !== null;
+}

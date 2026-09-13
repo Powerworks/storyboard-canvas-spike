@@ -18,11 +18,11 @@ Opens the canvas with PowerGym's real "Member Registration" story-arc loaded by 
 | Path | What it is |
 |---|---|
 | `src/` | The canvas itself — React Flow app, lane layout, node/edge components |
-| `scripts/import-eventmodelers.mjs` | Import adapter: parses eventmodelers.ai board exports (`requirements.md`/`research.md`, as transcribed by the PowerGym-style build kit) into this canvas's node/edge schema |
+| `scripts/import-eventmodelers.mjs` | Import adapter: parses eventmodelers.ai board exports (`requirements.md`/`research.md`, as transcribed by the PowerGym-style build kit) into this canvas's node/edge schema, plus a seed Layer 2 Example Map per slice where the source's Functional Requirements/Acceptance Criteria have real Rule/Example content to pull in |
 | `scripts/export-specifications.mjs` | Export adapter (the reverse of the import script): turns one slice's Layer 2 Example Map into a `specifications[]` array, the shape K9Crush's `build-state-change`/`build-state-view` skills consume to write one xUnit test per specification — see the script's header comment for known schema deviations |
 | `scripts/export-billing-snapshot.mjs` | Export adapter: turns a chosen set of slices' Layer 2 Example Maps into a priced, client-facing scope-of-work Markdown document (slices × flat per-slice rate = total), flagging rather than refusing slices with open Questions — see the script's header comment for the policy contrast with `export-specifications.mjs` |
 | `scripts/export-stakeholder-digest.mjs` | Export adapter: turns a chosen set of slices' Layer 2 Example Maps into a shareable Markdown status view of currently-open and recently-answered Questions, so stakeholders can check progress between sessions without a notification backend — `--mode always-current` (default, overwrites one fixed file) or `--mode versioned` (never overwrites, numbered suffixes like `export-billing-snapshot.mjs`); see the script's header comment |
-| `src/data/powergym-board.json` | The adapter's output, run against all 18 of PowerGym's real story-arcs — 149 nodes, 84 edges |
+| `src/data/powergym-board.json` | The adapter's output, run against all 18 of PowerGym's real story-arcs — 149 nodes, 84 edges, plus 65 slices with a seeded Layer 2 Example Map |
 | `mcp-server/` | An [MCP server](mcp-server/README.md) exposing the board to any MCP-compatible harness (Claude Code, Gemini CLI, etc.) — read-only for now |
 | `docs/` | Plan, solution architecture, and [ADRs](docs/adr/) for the real decisions made building this |
 
@@ -34,7 +34,7 @@ Opens the canvas with PowerGym's real "Member Registration" story-arc loaded by 
 - Inline Scenario (Given/When/Then) attachment on any node
 - Import adapter for eventmodelers.ai board exports
 - Read-only MCP server exposing the board
-- Layer 2 Example Mapping: per-slice, free-form canvas of Rule/Example/Question cards, persisted to `localStorage`, with an "Export Board JSON" action for feeding the export adapters below; reached from the Layer 1 canvas via the sidebar "Slices" list or by double-clicking a slice's node, both showing a Rule/Example/Question count badge (see [the plan](docs/plan.md#phase-5--layer-2-example-mapping-done))
+- Layer 2 Example Mapping: per-slice, free-form canvas of Rule/Example/Question cards, persisted to `localStorage`, with an "Export Board JSON" action for feeding the export adapters below; reached from the Layer 1 canvas via the sidebar "Slices" list or by double-clicking a slice's node, both showing a Rule/Example/Question count badge (see [the plan](docs/plan.md#phase-5--layer-2-example-mapping-done)). A slice opened for the first time pre-populates from the import adapter's seed data (real Rule/Example content, where the source had it) instead of starting blank; a slice with any saved board already — including one a user deliberately emptied — is never re-seeded
 - Question nodes carry a status (open/answered, with answer text and an ISO timestamp) and a "Mark Answered" toolbar action; missing status is treated as open, so no migration is needed for boards saved before this field existed
 - Export adapter turning a slice's Example Map into a `specifications[]` array for downstream test-generation (`scripts/export-specifications.mjs`) — see [the plan](docs/plan.md) for what's still out of scope (wiring into a mechanical gate, drift detection)
 - Export adapter turning chosen slices' Example Maps into a priced, client-facing scope-of-work Markdown snapshot (`scripts/export-billing-snapshot.mjs`)

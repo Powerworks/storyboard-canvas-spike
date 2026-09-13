@@ -18,7 +18,7 @@ scripts/import-eventmodelers.mjs  ──►  src/data/powergym-board.json
             └── run manually, output committed (not a build-time step)
 ```
 
-One canonical data artifact (`src/data/powergym-board.json`), two consumers (the React canvas, the MCP server). Neither consumer talks to the eventmodelers.ai export format directly — only the import adapter does.
+One canonical data artifact (`src/data/powergym-board.json`), two consumers (the React canvas, the MCP server). Neither consumer talks to the eventmodelers.ai export format directly — only the import adapter does. Alongside the Layer 1 `{nodes, edges}`, the artifact also carries a per-slice `seedExampleMaps` map (only the React canvas consumes this — see `ExampleMapView.tsx` below).
 
 ## Components
 
@@ -26,6 +26,7 @@ One canonical data artifact (`src/data/powergym-board.json`), two consumers (the
 
 Parses the real board-export markdown format:
 - `requirements.md`'s `## Event Model Detail (Source of Truth)` section — Slice blocks, each containing Command/Event/Automation elements with `Dependencies:` lines
+- `requirements.md`'s `## Functional Requirements` table and each User Story's Acceptance Criteria bullets — joined 1:1 by AC-N.M reference id to seed a Layer 2 Rule+Example pair per slice, where present (see below)
 - `research.md`'s `## UI Reference` section — Screen elements, associated with a slice by name (not uuid — a real gap the parser has to bridge, see below)
 
 Key design points, each earned through a real bug found via review:
@@ -33,8 +34,9 @@ Key design points, each earned through a real bug found via review:
 - **Edge labels derived from the referenced element's actual type** — `SCREEN` → `"triggers"`, everything else → `"produces"` — not a blanket label regardless of what's on the other end.
 - **Action→Outcome edges are inferred, not read** — the source text never states "this Action produces this Event" explicitly; it's implied by both belonging to the same Slice block. The adapter makes that pairing explicit.
 - **Screen sliceId resolved from name to uuid** — `research.md` only names a Screen's slice by its string name (`_(from slice: Register Member)_`), while every other element uses the slice's uuid. The adapter cross-references the two so a Screen lands in the correct timeline column.
+- **Seed Example Map join keyed on the produced event's label, not the AC's "When `<label>`" text** — command/automation labels can collide across sibling slices in the same spec (confirmed: two AUTOMATION slices both named "Shift Guard" in one real spec), which would silently misattribute a seed to the wrong slice; a produced-event label is confirmed unique per spec across all 18 real specs, so it's the primary join key, with the "When" text as fallback only when no event match exists.
 
-Output: a flat `{nodes, edges}` JSON structure, not positioned — layout is a downstream concern.
+Output: a flat `{nodes, edges}` JSON structure, not positioned — layout is a downstream concern — plus a `seedExampleMaps` map of sliceId to a seed Layer 2 board, populated only for slices where a Functional Requirement/Acceptance Criteria pair could be resolved.
 
 ### Canvas (`src/`)
 
@@ -43,7 +45,7 @@ Output: a flat `{nodes, edges}` JSON structure, not positioned — layout is a d
 - `StoryboardNode.tsx` — the custom node component, styled by lane, showing an attached Scenario (Given/When/Then) as a badge + detail panel if present.
 - `loadBoard.ts` — transforms the import adapter's flat node/edge JSON into React Flow's `Node[]`/`Edge[]` shape, computing timeline-column X positions per spec (slices in order of first appearance) and snapping Y to each node's lane. Also exposes `listSlices`, enumerating a spec's slices labeled by their Screen node when present (the source board carries no separate slice title field).
 - `App.tsx` — ties it together: a story-arc selector, the React Flow canvas, the Scenario side panel, and a "Slices" list that opens each slice's Layer 2 Example Map.
-- `ExampleMapView.tsx` / `ExampleMapNode.tsx` / `exampleMapStore.ts` — Layer 2 Example Mapping: a free-form, per-slice React Flow canvas of Rule (yellow) / Example (green, reusing the Scenario Given/When/Then shape) / Question (red, or grey with inline answer text once marked answered via the "Mark Answered" toolbar action) cards. Examples and Questions must attach to a selected Rule. Persisted to `localStorage` per slice, independent of the committed board JSON.
+- `ExampleMapView.tsx` / `ExampleMapNode.tsx` / `exampleMapStore.ts` — Layer 2 Example Mapping: a free-form, per-slice React Flow canvas of Rule (yellow) / Example (green, reusing the Scenario Given/When/Then shape) / Question (red, or grey with inline answer text once marked answered via the "Mark Answered" toolbar action) cards. Examples and Questions must attach to a selected Rule. Persisted to `localStorage` per slice. A slice opened for the first time pre-populates from the import adapter's `seedExampleMaps` entry (real Rule/Example content), if one exists, rather than starting blank; `exampleMapStore.ts`'s `hasExampleMap` (raw `localStorage` presence, not "zero nodes") distinguishes that never-touched case from a slice a user deliberately emptied, which is never re-seeded.
 
 ### MCP server (`mcp-server/`)
 
