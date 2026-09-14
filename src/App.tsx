@@ -19,6 +19,7 @@ import { ExampleMapView } from "./ExampleMapView";
 import { getExampleMapSummary } from "./exampleMapStore";
 import { Badge } from "./components/Badge";
 import { Button } from "./components/Button";
+import { SettingsPanel } from "./components/SettingsPanel";
 import { theme } from "./theme";
 
 const CANVAS_WIDTH = 2400;
@@ -40,6 +41,7 @@ export default function App() {
   const [edges, setEdges] = useState<Edge[]>(initial.edges);
   const [selected, setSelected] = useState<Node | null>(null);
   const [openSliceId, setOpenSliceId] = useState<string | null>(null);
+  const [showSettings, setShowSettings] = useState(false);
   const slices = listSlices(selectedSpec);
 
   // Recomputed on every render — including whenever openSliceId flips back
@@ -108,7 +110,8 @@ export default function App() {
   } as const;
 
   return (
-    <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
+    <>
+      <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
       <div style={{ flex: 1, position: "relative", overflow: "auto", minWidth: 0 }}>
         <LaneBackground width={CANVAS_WIDTH} />
         <ReactFlow
@@ -134,6 +137,10 @@ export default function App() {
       {/* Minimal scenario side panel — proves the "attach GWT to any
           element" feature is structurally wired, not just cosmetic. */}
       <div style={panelStyle}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: theme.space.lg }}>
+          <h3 style={{ margin: 0 }}>EUnomia</h3>
+          <Button onClick={() => setShowSettings(true)}>Settings</Button>
+        </div>
         <h3 style={{ marginTop: 0 }}>Story-arc</h3>
         <select
           value={selectedSpec}
@@ -205,5 +212,7 @@ export default function App() {
         )}
       </div>
     </div>
+      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
+    </>
   );
 }
