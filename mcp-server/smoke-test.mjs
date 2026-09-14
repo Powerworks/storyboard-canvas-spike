@@ -68,6 +68,29 @@ async function main() {
   console.log("\n=== search_elements('membership') ===");
   console.log("matches:", searchResults.length, searchResults.slice(0, 3).map((n) => n.label));
 
+  const slices = await send("tools/call", { name: "list_slices", arguments: { specId: "002a-member-registration" } });
+  const sliceData = JSON.parse(slices.result?.content?.[0]?.text ?? "[]");
+  console.log("\n=== list_slices(002a-member-registration) ===");
+  console.log("count:", sliceData.length, "first:", JSON.stringify(sliceData[0]));
+  const withMap = sliceData.find((s) => s.hasExampleMap);
+  console.log("first with hasExampleMap:", withMap?.sliceId);
+
+  if (withMap) {
+    const em = await send("tools/call", { name: "get_example_map", arguments: { sliceId: withMap.sliceId } });
+    const emData = JSON.parse(em.result?.content?.[0]?.text ?? "{}");
+    console.log("\n=== get_example_map ===");
+    console.log("nodes:", emData.nodes?.length, "edges:", emData.edges?.length, "nodeTypes:", emData.nodes?.map((n) => n.data?.nodeType));
+
+    const specs = await send("tools/call", { name: "export_specifications", arguments: { sliceId: withMap.sliceId } });
+    const specData = JSON.parse(specs.result?.content?.[0]?.text ?? "{}");
+    console.log("\n=== export_specifications ===");
+    console.log("specifications:", specData.specifications?.length, "warnings:", specData.warnings?.length);
+  }
+
+  const badMap = await send("tools/call", { name: "get_example_map", arguments: { sliceId: "does-not-exist" } });
+  console.log("\n=== get_example_map(does-not-exist) — expect isError ===");
+  console.log("isError:", badMap.result?.isError);
+
   proc.kill();
   process.exit(0);
 }

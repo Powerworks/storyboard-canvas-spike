@@ -1,18 +1,18 @@
 #!/usr/bin/env node
-// MCP server exposing this canvas's board data (currently PowerGym's
-// imported eventmodelers.ai story-arcs) to any MCP-compatible harness.
+// MCP server exposing EUnomia's board data (currently PowerGym's imported
+// eventmodelers.ai story-arcs) to any MCP-compatible harness.
 //
-// Design note (Ouroboros-inspired reframe, decided 2026-09-02): rather
-// than hand-building a per-harness export adapter (a Claude-flavored
-// Markdown exporter, a Gemini-flavored one, etc.), expose the board
-// through one protocol every major harness already speaks. The canonical
-// data stays the same JSON schema the import adapter and the React app
-// both already use (src/data/powergym-board.json) — this server is a
-// thin protocol wrapper around it, not a second source of truth.
+// Design note (Ouroboros-inspired reframe, decided 2026-09-02): rather than
+// hand-building a per-harness export adapter, expose the board through one
+// protocol every major harness already speaks. The canonical data stays the
+// same JSON schema the import adapter and the React app both already use
+// (src/data/powergym-board.json) — this server is a thin protocol wrapper
+// around it, not a second source of truth.
 //
-// v1 scope: read-only tools over the existing imported board. Writing
-// back to the board (the Agentic Modeling capability, task-queued,
-// skill-routed edits) is separate, larger scope — not this file.
+// v2 (2026-09-14) adds the verification-spine surface: slice listing,
+// Layer 2 Example Maps, and the specifications[] export (WS3). Still
+// read-only — writing back to the board (Agentic Modeling) is separate,
+// larger scope, not this file.
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -20,6 +20,7 @@ import { z } from "zod";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { exportSpecifications } from "../scripts/export-specifications.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const board = JSON.parse(readFileSync(join(__dirname, "..", "src", "data", "powergym-board.json"), "utf-8"));
@@ -36,7 +37,33 @@ function specIds() {
   return order;
 }
 
-const server = new McpServer({ name: "storyboard-canvas", version: "0.1.0" });
+/** Slices for one spec (or every spec when specId is omitted), in order of
+ * first appearance, labeled by their Screen node when present — the source
+ * board carries no separate slice title field (same logic as loadBoard.ts). */
+function slices(specId) {
+  const byId = new Map();
+  const order = [];
+  for (const n of board.nodes) {
+    if (specId && n.specId !== specId) continue;
+    if (!byId.has(n.sliceId)) {
+      byId.set(n.sliceId, { sliceId: n.sliceId, specId: n.specId, sliceType: n.sliceType, label: n.label });
+      order.push(n.sliceId);
+    }
+    if (n.laneId === "screen") byId.get(n.sliceId).label = n.label;
+  }
+  return order.map((id) => {
+    const s = byId.get(id);
+    return {
+      sliceId: s.sliceId,
+      specId: s.specId,
+      sliceType: s.sliceType,
+      label: s.label,
+      hasExampleMap: Boolean(board.seedExampleMaps?.[id]),
+    };
+  });
+}
+
+const server = new McpServer({ name: "eunomia", version: "0.2.0" });
 
 server.tool(
   "list_story_arcs",
@@ -81,6 +108,52 @@ server.tool(
     const q = query.toLowerCase();
     const matches = board.nodes.filter((n) => n.label.toLowerCase().includes(q));
     return { content: [{ type: "text", text: JSON.stringify(matches, null, 2) }] };
+  },
+);
+
+server.tool(
+  "list_slices",
+  "List slices (vertical buildable units), optionally filtered to one story-arc. Each entry has sliceId, specId, sliceType, a human label, and hasExampleMap (whether a Layer 2 Example Map was seeded from the source). Use this before get_example_map or export_specifications.",
+  { specId: z.string().optional().describe("Optional story-arc id to filter by; omit to list every slice on the board.") },
+  async ({ specId }) => {
+    return { content: [{ type: "text", text: JSON.stringify(slices(specId), null, 2) }] };
+  },
+);
+
+server.tool(
+  "get_example_map",
+  "Get a slice's Layer 2 Example Map (Rule/Example/Question cards, each Example carrying a Given/When/Then scenario) as nodes/edges. Only slices whose source had Functional Requirements/Acceptance Criteria have a seed map (see hasExampleMap in list_slices).",
+  { sliceId: z.string().describe("A slice id from list_slices, e.g. a uuid.") },
+  async ({ sliceId }) => {
+    const seed = board.seedExampleMaps?.[sliceId];
+    if (!seed) {
+      return {
+        content: [{ type: "text", text: `No seed Example Map for slice "${sliceId}". Only slices whose source spec had Functional Requirements + Acceptance Criteria get one — check list_slices (hasExampleMap) for which do.` }],
+        isError: true,
+      };
+    }
+    return { content: [{ type: "text", text: JSON.stringify(seed, null, 2) }] };
+  },
+);
+
+server.tool(
+  "export_specifications",
+  "Turn a slice's Example Map into a specifications[] array (the shape downstream test-generation consumes: one spec per Example, with the Rule's text carried on each). Refuses if the map has unresolved Question cards — that's the 'slice isn't understood well enough' signal.",
+  { sliceId: z.string().describe("A slice id from list_slices that has hasExampleMap true.") },
+  async ({ sliceId }) => {
+    const seed = board.seedExampleMaps?.[sliceId];
+    if (!seed) {
+      return {
+        content: [{ type: "text", text: `No seed Example Map for slice "${sliceId}" — call list_slices to find one with hasExampleMap true.` }],
+        isError: true,
+      };
+    }
+    try {
+      const result = exportSpecifications(seed, sliceId);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err) {
+      return { content: [{ type: "text", text: err.message }], isError: true };
+    }
   },
 );
 
