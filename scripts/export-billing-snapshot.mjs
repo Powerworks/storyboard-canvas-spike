@@ -32,17 +32,19 @@
 
 import { readFileSync, existsSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import { loadResolvedPresets } from "./presets.mjs";
 
 function parseArgs(argv) {
   const args = {
     boardsDir: null,
     sliceIds: null,
     rate: null,
-    currency: "EUR",
+    currency: null,
     client: null,
     project: null,
     status: "Proposed",
     outDir: "./snapshots",
+    presets: null,
   };
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i];
@@ -55,6 +57,7 @@ function parseArgs(argv) {
     else if (flag === "--project") args.project = val();
     else if (flag === "--status") args.status = val();
     else if (flag === "--out-dir") args.outDir = val();
+    else if (flag === "--presets") args.presets = val();
   }
   return args;
 }
@@ -111,7 +114,7 @@ function loadSlices(boardsDir, sliceIds) {
   });
 }
 
-function renderMarkdown({ project, client, status, rate, currency, date, slices }) {
+function renderMarkdown({ project, client, status, rate, currency, billingModel, date, slices }) {
   const totalCents = Math.round(slices.length * Math.round(rate * 100));
   const total = (totalCents / 100).toFixed(2);
   const slicesWithQuestions = slices.filter((s) => s.openQuestions.length > 0);
@@ -122,6 +125,7 @@ function renderMarkdown({ project, client, status, rate, currency, date, slices 
   lines.push(`**Client:** ${client}          **Status:** ${status}`);
   lines.push(`**Date:** ${date}         **Rate:** ${rate} ${currency} / slice`);
   lines.push(`**Slices:** ${slices.length}                 **Total:** ${total} ${currency}`);
+  lines.push(`**Billing model:** ${billingModel}`);
   lines.push("");
   if (slicesWithQuestions.length > 0) {
     lines.push(
@@ -177,10 +181,25 @@ function writeVersioned(outDir, baseName, content) {
 // --- CLI wrapper -------------------------------------------------------------
 
 const args = parseArgs(process.argv.slice(2));
-const missing = ["boardsDir", "sliceIds", "rate", "client", "project"].filter((k) => !args[k]);
+
+// Presets (Phase 4): currency/billing model/rate default from the resolved
+// preset catalog unless overridden explicitly on the command line.
+let presets;
+try {
+  presets = loadResolvedPresets(args.presets);
+} catch (err) {
+  console.error(err.message);
+  process.exit(1);
+}
+const currency = args.currency ?? presets["customer.currency"] ?? "EUR";
+const billingModel = presets["customer.billingModel"] ?? "fixed-per-slice";
+const rate = args.rate ?? presets["customer.sliceRate"] ?? null;
+
+const missing = ["boardsDir", "sliceIds", "client", "project"].filter((k) => !args[k]);
+if (rate === null || rate <= 0) missing.push("rate");
 if (missing.length > 0) {
   console.error(
-    "Usage: node export-billing-snapshot.mjs --boards-dir <dir> --slice-ids <id1,id2,...> --rate <number> --currency <code> --client \"<name>\" --project \"<name>\" [--status <status>] [--out-dir <dir>]",
+    "Usage: node export-billing-snapshot.mjs --boards-dir <dir> --slice-ids <id1,id2,...> --rate <number> --currency <code> --client \"<name>\" --project \"<name>\" [--status <status>] [--out-dir <dir>] [--presets <file>]",
   );
   console.error(`Missing: ${missing.join(", ")}`);
   process.exit(1);
@@ -199,8 +218,9 @@ const markdown = renderMarkdown({
   project: args.project,
   client: args.client,
   status: args.status,
-  rate: args.rate,
-  currency: args.currency,
+  rate,
+  currency,
+  billingModel,
   date,
   slices,
 });

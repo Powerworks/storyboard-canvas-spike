@@ -37,12 +37,14 @@
 
 import { readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
+import { loadResolvedPresets } from "./presets.mjs";
 
 function parseArgs(argv) {
-  const args = { input: null, sliceId: null };
+  const args = { input: null, sliceId: null, presets: null };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--input") args.input = argv[++i];
     else if (argv[i] === "--slice-id") args.sliceId = argv[++i];
+    else if (argv[i] === "--presets") args.presets = argv[++i];
   }
   return args;
 }
@@ -121,7 +123,7 @@ const isMain = import.meta.url === pathToFileURL(process.argv[1] ?? "").href;
 if (isMain) {
   const args = parseArgs(process.argv.slice(2));
   if (!args.input || !args.sliceId) {
-    console.error("Usage: node export-specifications.mjs --input <board.json> --slice-id <id>");
+    console.error("Usage: node export-specifications.mjs --input <board.json> --slice-id <id> [--presets <file>]");
     process.exit(1);
   }
 
@@ -133,6 +135,20 @@ if (isMain) {
   } catch (err) {
     console.error(err.message);
     process.exit(1);
+  }
+
+  // Presets (Phase 4): attach the resolved target stack + test framework as
+  // metadata so a downstream agent knows what to generate. Backward-compatible
+  // extra fields; the specifications[] array itself is unchanged.
+  if (args.presets) {
+    try {
+      const presets = loadResolvedPresets(args.presets);
+      result.targetStack = presets["integration.targetStack"];
+      result.framework = presets["testing.framework"];
+    } catch (err) {
+      console.error(err.message);
+      process.exit(1);
+    }
   }
 
   for (const w of result.warnings) console.error(`[warn] ${w}`);

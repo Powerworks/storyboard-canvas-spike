@@ -32,15 +32,17 @@
 
 import { readFileSync, existsSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
+import { loadResolvedPresets } from "./presets.mjs";
 
 function parseArgs(argv) {
   const args = {
     boardsDir: null,
     sliceIds: null,
     project: null,
-    mode: "always-current",
+    mode: null,
     recentlyAnsweredDays: 14,
     outDir: "./digests",
+    presets: null,
   };
   for (let i = 0; i < argv.length; i++) {
     const flag = argv[i];
@@ -51,6 +53,7 @@ function parseArgs(argv) {
     else if (flag === "--mode") args.mode = val();
     else if (flag === "--recently-answered-days") args.recentlyAnsweredDays = Number(val());
     else if (flag === "--out-dir") args.outDir = val();
+    else if (flag === "--presets") args.presets = val();
   }
   return args;
 }
@@ -168,16 +171,28 @@ function writeVersioned(outDir, baseName, content) {
 // --- CLI wrapper -------------------------------------------------------------
 
 const args = parseArgs(process.argv.slice(2));
+
+// Presets (Phase 4): the freshness mode defaults from communication.digestMode
+// unless overridden on the command line.
+let presets;
+try {
+  presets = loadResolvedPresets(args.presets);
+} catch (err) {
+  console.error(err.message);
+  process.exit(1);
+}
+const mode = args.mode ?? presets["communication.digestMode"] ?? "always-current";
+
 const missing = ["boardsDir", "sliceIds", "project"].filter((k) => !args[k]);
 if (missing.length > 0) {
   console.error(
-    'Usage: node export-stakeholder-digest.mjs --boards-dir <dir> --slice-ids <id1,id2,...> --project "<name>" [--mode always-current|versioned] [--recently-answered-days <n>] [--out-dir <dir>]',
+    'Usage: node export-stakeholder-digest.mjs --boards-dir <dir> --slice-ids <id1,id2,...> --project "<name>" [--mode always-current|versioned] [--recently-answered-days <n>] [--out-dir <dir>] [--presets <file>]',
   );
   console.error(`Missing: ${missing.join(", ")}`);
   process.exit(1);
 }
-if (args.mode !== "always-current" && args.mode !== "versioned") {
-  console.error(`Invalid --mode "${args.mode}" — must be "always-current" or "versioned".`);
+if (mode !== "always-current" && mode !== "versioned") {
+  console.error(`Invalid --mode "${mode}" — must be "always-current" or "versioned".`);
   process.exit(1);
 }
 
@@ -194,11 +209,11 @@ const markdown = renderMarkdown({ project: args.project, date, slices });
 
 const slug = slugify(args.project);
 const written =
-  args.mode === "always-current"
+  mode === "always-current"
     ? writeAlwaysCurrent(args.outDir, `${slug}-digest`, markdown)
     : writeVersioned(args.outDir, `${date}-${slug}-digest`, markdown);
 
-console.error(`[stakeholder-digest] wrote ${written} (mode: ${args.mode})`);
+console.error(`[stakeholder-digest] wrote ${written} (mode: ${mode})`);
 console.error(
   `[stakeholder-digest] ${slices.reduce((s, sl) => s + sl.open.length, 0)} open, ${slices.reduce((s, sl) => s + sl.recentlyAnswered.length, 0)} recently answered`,
 );
