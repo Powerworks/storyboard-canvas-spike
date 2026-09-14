@@ -1,5 +1,8 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import { LANES, type LaneId } from "./lanes";
+import { theme } from "./theme";
+import { NodeCard } from "./components/NodeCard";
+import { Badge } from "./components/Badge";
 
 export interface StoryboardNodeData {
   label: string;
@@ -18,14 +21,6 @@ export interface StoryboardNodeData {
   [key: string]: unknown;
 }
 
-const laneBorderColor: Record<LaneId, string> = {
-  actor: "#a1a1aa",
-  screen: "#6366f1",
-  action: "#06b6d4",
-  outcome: "#f97316",
-  ownedData: "#22c55e",
-};
-
 export function StoryboardNode({ data }: NodeProps) {
   const nodeData = data as unknown as StoryboardNodeData;
   const lane = LANES.find((l) => l.id === nodeData.laneId);
@@ -34,24 +29,16 @@ export function StoryboardNode({ data }: NodeProps) {
   const hasExampleMap = Boolean(mapSummary && (mapSummary.rules || mapSummary.examples || mapSummary.questions));
 
   return (
-    <div
+    <NodeCard
+      borderColor={theme.color.lane[nodeData.laneId].border}
       title={hasExampleMap ? undefined : "Double-click to open this slice's Example Map"}
-      style={{
-        border: `2px solid ${laneBorderColor[nodeData.laneId]}`,
-        borderRadius: 6,
-        padding: "8px 12px",
-        background: "white",
-        minWidth: 160,
-        fontSize: 13,
-        boxShadow: "0 1px 2px rgba(0,0,0,0.08)",
-        position: "relative",
-      }}
     >
       <Handle type="target" position={Position.Left} />
-      <div style={{ fontSize: 10, color: "#71717a", marginBottom: 2 }}>{lane?.label}</div>
+      <div style={{ fontSize: theme.fontSize.xs, color: theme.color.text.muted, marginBottom: 2 }}>{lane?.label}</div>
       <div style={{ fontWeight: 600 }}>{nodeData.label}</div>
       {hasExampleMap && mapSummary && (
-        <div
+        <Badge
+          background={mapSummary.openQuestions ? theme.color.badge.danger : theme.color.badge.info}
           title={
             `Example Map: ${mapSummary.rules} Rule${mapSummary.rules === 1 ? "" : "s"}, ` +
             `${mapSummary.examples} Example${mapSummary.examples === 1 ? "" : "s"}, ` +
@@ -59,44 +46,22 @@ export function StoryboardNode({ data }: NodeProps) {
             (mapSummary.openQuestions ? ` (${mapSummary.openQuestions} open)` : "") +
             " — double-click to open"
           }
-          style={{
-            position: "absolute",
-            bottom: -8,
-            left: -8,
-            background: mapSummary.openQuestions ? "#ef4444" : "#3b82f6",
-            color: "white",
-            borderRadius: 9,
-            padding: "1px 6px",
-            fontSize: 10,
-            fontWeight: 700,
-            whiteSpace: "nowrap",
-          }}
+          style={{ position: "absolute", bottom: -8, left: -8 }}
         >
           R{mapSummary.rules} E{mapSummary.examples} Q{mapSummary.questions}
-        </div>
+        </Badge>
       )}
       {hasScenario && (
-        <div
+        <Badge
+          variant="dot"
+          background={theme.color.badge.success}
           title={`Given ${nodeData.scenario!.given}\nWhen ${nodeData.scenario!.when}\nThen ${nodeData.scenario!.then}`}
-          style={{
-            position: "absolute",
-            top: -8,
-            right: -8,
-            background: "#22c55e",
-            color: "white",
-            borderRadius: "50%",
-            width: 18,
-            height: 18,
-            fontSize: 11,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+          style={{ position: "absolute", top: -8, right: -8 }}
         >
           ✓
-        </div>
+        </Badge>
       )}
       <Handle type="source" position={Position.Right} />
-    </div>
+    </NodeCard>
   );
 }

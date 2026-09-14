@@ -2,6 +2,9 @@
 // the Version1 brief: Actor/Role, Screen/View, Action, Outcome, Owned Data.
 // Time flows left-to-right within each lane (X axis), lane assignment is
 // purely Y-axis (vertical band a node's center falls into).
+//
+// This file owns lane *geometry and vocabulary* (the modeling preset); lane
+// *colors* live in `theme.ts` (the design preset) under `theme.color.lane`.
 export type LaneId = "actor" | "screen" | "action" | "outcome" | "ownedData";
 
 export interface Lane {
@@ -9,17 +12,16 @@ export interface Lane {
   label: string;
   yCenter: number;
   height: number;
-  color: string;
 }
 
 const LANE_HEIGHT = 140;
 
 export const LANES: Lane[] = [
-  { id: "actor", label: "ACTOR / ROLE", yCenter: LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#f4f4f5" },
-  { id: "screen", label: "SCREEN / VIEW", yCenter: LANE_HEIGHT * 1 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#eef2ff" },
-  { id: "action", label: "ACTION", yCenter: LANE_HEIGHT * 2 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#ecfeff" },
-  { id: "outcome", label: "OUTCOME (State Change)", yCenter: LANE_HEIGHT * 3 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#fff7ed" },
-  { id: "ownedData", label: "OWNED DATA", yCenter: LANE_HEIGHT * 4 + LANE_HEIGHT / 2, height: LANE_HEIGHT, color: "#f0fdf4" },
+  { id: "actor", label: "ACTOR / ROLE", yCenter: LANE_HEIGHT / 2, height: LANE_HEIGHT },
+  { id: "screen", label: "SCREEN / VIEW", yCenter: LANE_HEIGHT * 1 + LANE_HEIGHT / 2, height: LANE_HEIGHT },
+  { id: "action", label: "ACTION", yCenter: LANE_HEIGHT * 2 + LANE_HEIGHT / 2, height: LANE_HEIGHT },
+  { id: "outcome", label: "OUTCOME (State Change)", yCenter: LANE_HEIGHT * 3 + LANE_HEIGHT / 2, height: LANE_HEIGHT },
+  { id: "ownedData", label: "OWNED DATA", yCenter: LANE_HEIGHT * 4 + LANE_HEIGHT / 2, height: LANE_HEIGHT },
 ];
 
 export const TOTAL_HEIGHT = LANE_HEIGHT * LANES.length;

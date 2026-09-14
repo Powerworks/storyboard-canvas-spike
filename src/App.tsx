@@ -17,6 +17,9 @@ import { StoryboardNode, type StoryboardNodeData } from "./StoryboardNode";
 import { listSpecs, loadSpec, listSlices } from "./loadBoard";
 import { ExampleMapView } from "./ExampleMapView";
 import { getExampleMapSummary } from "./exampleMapStore";
+import { Badge } from "./components/Badge";
+import { Button } from "./components/Button";
+import { theme } from "./theme";
 
 const CANVAS_WIDTH = 2400;
 
@@ -96,6 +99,14 @@ export default function App() {
     );
   }
 
+  const panelStyle = {
+    width: 300,
+    borderLeft: `1px solid ${theme.color.border}`,
+    padding: theme.space.xl,
+    fontFamily: "sans-serif",
+    fontSize: theme.fontSize.base,
+  } as const;
+
   return (
     <div style={{ width: "100vw", height: "100vh", display: "flex" }}>
       <div style={{ flex: 1, position: "relative", overflow: "auto", minWidth: 0 }}>
@@ -122,12 +133,12 @@ export default function App() {
 
       {/* Minimal scenario side panel — proves the "attach GWT to any
           element" feature is structurally wired, not just cosmetic. */}
-      <div style={{ width: 300, borderLeft: "1px solid #e4e4e7", padding: 16, fontFamily: "sans-serif", fontSize: 13 }}>
+      <div style={panelStyle}>
         <h3 style={{ marginTop: 0 }}>Story-arc</h3>
         <select
           value={selectedSpec}
           onChange={(e) => changeSpec(e.target.value)}
-          style={{ width: "100%", padding: 6, marginBottom: 16, fontSize: 12 }}
+          style={{ width: "100%", padding: theme.space.sm, marginBottom: theme.space.xl, fontSize: theme.fontSize.md }}
         >
           {specs.map((s) => (
             <option key={s} value={s}>
@@ -135,12 +146,12 @@ export default function App() {
             </option>
           ))}
         </select>
-        <div style={{ color: "#71717a", marginBottom: 16, fontSize: 11 }}>
+        <div style={{ color: theme.color.text.muted, marginBottom: theme.space.xl, fontSize: theme.fontSize.sm }}>
           {nodes.length} nodes, {edges.length} edges — imported from PowerGym's real eventmodelers.ai board
         </div>
 
         <h3 style={{ marginTop: 0 }}>Slices</h3>
-        <div style={{ maxHeight: 160, overflowY: "auto", marginBottom: 16 }}>
+        <div style={{ maxHeight: 160, overflowY: "auto", marginBottom: theme.space.xl }}>
           {slices.map((s) => (
             <div
               key={s.sliceId}
@@ -148,37 +159,28 @@ export default function App() {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                padding: "4px 0",
-                borderBottom: "1px solid #f4f4f5",
-                fontSize: 12,
+                padding: `${theme.space.xs}px 0`,
+                borderBottom: `1px solid ${theme.color.borderLight}`,
+                fontSize: theme.fontSize.md,
               }}
             >
               <span title={s.label} style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {s.label}
               </span>
-              <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <span style={{ display: "flex", alignItems: "center", gap: theme.space.sm }}>
                 {(() => {
                   const summary = exampleMapSummaries[s.sliceId];
                   if (!summary || (!summary.rules && !summary.examples && !summary.questions)) return null;
                   return (
-                    <span
+                    <Badge
+                      background={summary.openQuestions ? theme.color.badge.danger : theme.color.badge.info}
                       title={`${summary.rules} Rule(s), ${summary.examples} Example(s), ${summary.questions} Question(s)`}
-                      style={{
-                        fontSize: 10,
-                        fontWeight: 700,
-                        color: "white",
-                        background: summary.openQuestions ? "#ef4444" : "#3b82f6",
-                        borderRadius: 9,
-                        padding: "1px 6px",
-                      }}
                     >
                       R{summary.rules} E{summary.examples} Q{summary.questions}
-                    </span>
+                    </Badge>
                   );
                 })()}
-                <button style={{ fontSize: 11 }} onClick={() => setOpenSliceId(s.sliceId)}>
-                  Example Map &rarr;
-                </button>
+                <Button onClick={() => setOpenSliceId(s.sliceId)}>Example Map &rarr;</Button>
               </span>
             </div>
           ))}
@@ -187,7 +189,7 @@ export default function App() {
         <h3 style={{ marginTop: 0 }}>Scenario</h3>
         {selected ? (
           <>
-            <div style={{ fontWeight: 600, marginBottom: 8 }}>{(selected.data as StoryboardNodeData).label}</div>
+            <div style={{ fontWeight: 600, marginBottom: theme.space.md }}>{(selected.data as StoryboardNodeData).label}</div>
             {(selected.data as StoryboardNodeData).scenario ? (
               <div style={{ lineHeight: 1.6 }}>
                 <div><strong>Given</strong> {(selected.data as StoryboardNodeData).scenario!.given}</div>
@@ -195,11 +197,11 @@ export default function App() {
                 <div><strong>Then</strong> {(selected.data as StoryboardNodeData).scenario!.then}</div>
               </div>
             ) : (
-              <div style={{ color: "#71717a" }}>No scenario attached to this element yet.</div>
+              <div style={{ color: theme.color.text.muted }}>No scenario attached to this element yet.</div>
             )}
           </>
         ) : (
-          <div style={{ color: "#71717a" }}>Click a card to view its attached scenario (Given/When/Then).</div>
+          <div style={{ color: theme.color.text.muted }}>Click a card to view its attached scenario (Given/When/Then).</div>
         )}
       </div>
     </div>

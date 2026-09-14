@@ -14,6 +14,8 @@ import "@xyflow/react/dist/style.css";
 import { ExampleMapNode, type ExampleMapNodeData, type ExampleMapNodeType } from "./ExampleMapNode";
 import { loadExampleMap, saveExampleMap, hasExampleMap } from "./exampleMapStore";
 import { getSeedExampleMap } from "./loadBoard";
+import { Button } from "./components/Button";
+import { theme } from "./theme";
 
 const nodeTypes = { exampleMap: ExampleMapNode };
 
@@ -147,27 +149,27 @@ export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: strin
         <div
           style={{
             position: "absolute",
-            top: 12,
-            left: 12,
+            top: theme.space.lg,
+            left: theme.space.lg,
             zIndex: 10,
             display: "flex",
-            gap: 8,
+            gap: theme.space.md,
             alignItems: "center",
-            background: "white",
-            padding: "6px 10px",
-            borderRadius: 6,
-            boxShadow: "0 1px 4px rgba(0,0,0,0.15)",
+            background: theme.color.surface,
+            padding: `${theme.space.sm}px ${theme.space.xs + theme.space.sm}px`,
+            borderRadius: theme.radius.md,
+            boxShadow: theme.shadow.md,
             fontFamily: "sans-serif",
-            fontSize: 13,
+            fontSize: theme.fontSize.base,
           }}
         >
-          <button onClick={onBack}>&larr; Back to Timeline</button>
-          <span style={{ color: "#71717a" }}>Example Map — {sliceLabel}</span>
-          <button onClick={addRule}>+ Rule</button>
-          <button onClick={() => addChild("example")}>+ Example</button>
-          <button onClick={() => addChild("question")}>+ Question</button>
-          <button onClick={markAnswered}>Mark Answered</button>
-          <button onClick={exportBoardJson}>Export Board JSON</button>
+          <Button onClick={onBack}>&larr; Back to Timeline</Button>
+          <span style={{ color: theme.color.text.muted }}>Example Map — {sliceLabel}</span>
+          <Button onClick={addRule}>+ Rule</Button>
+          <Button onClick={() => addChild("example")}>+ Example</Button>
+          <Button onClick={() => addChild("question")}>+ Question</Button>
+          <Button onClick={markAnswered}>Mark Answered</Button>
+          <Button onClick={exportBoardJson}>Export Board JSON</Button>
         </div>
         <ReactFlow
           nodes={nodes}

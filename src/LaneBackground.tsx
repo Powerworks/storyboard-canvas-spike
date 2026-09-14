@@ -1,4 +1,5 @@
 import { LANES, TOTAL_HEIGHT } from "./lanes";
+import { theme } from "./theme";
 
 /** Renders the fixed lane bands + labels behind the React Flow canvas.
  * This is the "swimlane" visual — plain absolutely-positioned divs, not
@@ -15,18 +16,18 @@ export function LaneBackground({ width }: { width: number }) {
             left: 0,
             width,
             height: lane.height,
-            background: lane.color,
-            borderBottom: "1px solid #e4e4e7",
+            background: theme.color.lane[lane.id].fill,
+            borderBottom: `1px solid ${theme.color.border}`,
           }}
         >
           <span
             style={{
               position: "sticky",
-              left: 8,
-              top: 8,
-              fontSize: 11,
+              left: theme.space.md,
+              top: theme.space.md,
+              fontSize: theme.fontSize.sm,
               fontWeight: 700,
-              color: "#52525b",
+              color: theme.color.text.subtle,
               letterSpacing: 0.5,
             }}
           >
