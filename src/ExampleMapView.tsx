@@ -15,7 +15,7 @@ import { ExampleMapNode, type ExampleMapNodeData, type ExampleMapNodeType } from
 import { loadExampleMap, saveExampleMap, hasExampleMap } from "./exampleMapStore";
 import { getSeedExampleMap } from "./loadBoard";
 import { Button } from "./components/Button";
-import { theme } from "./theme";
+import { useTheme } from "./presetContext";
 
 const nodeTypes = { exampleMap: ExampleMapNode };
 
@@ -40,6 +40,7 @@ function getInitialBoard(sliceId: string) {
 // state is initialized once from that slice's saved (or seeded) board
 // rather than synchronized via an effect on the sliceId prop.
 export function ExampleMapView({ sliceId, sliceLabel, onBack }: { sliceId: string; sliceLabel: string; onBack: () => void }) {
+  const theme = useTheme();
   const [nodes, setNodes] = useState<Node[]>(() => getInitialBoard(sliceId).nodes);
   const [edges, setEdges] = useState<Edge[]>(() => getInitialBoard(sliceId).edges);
   const [selected, setSelected] = useState<Node | null>(null);

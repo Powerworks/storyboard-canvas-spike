@@ -1,10 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
-import { theme } from "../theme";
+import { useTheme } from "../presetContext";
 
 /** Base card wrapper for canvas nodes — the shared border/radius/padding/
  * shadow treatment both Layer 1 nodes and Layer 2 Example Map cards build on.
  * Border and background are explicit props because they're semantic (lane
- * color vs card-type color); the rest comes from the theme. */
+ * color vs card-type color); the rest comes from the active theme. */
 export function NodeCard({
   children,
   borderColor,
@@ -22,6 +22,7 @@ export function NodeCard({
   maxWidth?: number;
   style?: CSSProperties;
 }) {
+  const theme = useTheme();
   return (
     <div
       title={title}

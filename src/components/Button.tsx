@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { theme } from "../theme";
+import { useTheme } from "../presetContext";
 
 /** Minimal button primitive — normalizes the base look across the side panel
  * and the Example Map toolbar so "add", "back", and "export" actions read as
@@ -13,6 +13,7 @@ export function Button({
   onClick?: () => void;
   style?: CSSProperties;
 }) {
+  const theme = useTheme();
   return (
     <button
       onClick={onClick}

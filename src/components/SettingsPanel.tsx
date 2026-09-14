@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { PRESETS } from "../presets/catalog";
-import { resolvePresets } from "../presets/resolver";
-import { loadOverrides, saveOverrides } from "../presets/store";
-import type { Overrides, PresetDefinition, PresetValue, PresetGroup } from "../presets/types";
-import { theme } from "../theme";
+import type { PresetDefinition, PresetValue, PresetGroup } from "../presets/types";
+import { usePresets, useTheme } from "../presetContext";
 import { Button } from "./Button";
 
 const GROUP_LABELS: Record<PresetGroup, string> = {
@@ -40,6 +37,7 @@ function PresetRow({
   explicit: PresetValue | undefined;
   onChange: (value: PresetValue | undefined) => void;
 }) {
+  const theme = useTheme();
   const source = explicit !== undefined ? def.scope : (resolved !== def.default ? "derived" : "default");
   const sourceIsOverride = source === "org" || source === "project" || source === "user";
 
@@ -111,21 +109,11 @@ function PresetRow({
 }
 
 export function SettingsPanel({ onClose }: { onClose: () => void }) {
-  const [overrides, setOverrides] = useState<Overrides>(() => loadOverrides());
-  const resolved = resolvePresets(PRESETS, overrides);
+  const theme = useTheme();
+  const { resolved, overrides, setOverride } = usePresets();
 
   const update = (def: PresetDefinition, value: PresetValue | undefined) => {
-    setOverrides((prev) => {
-      const next: Overrides = {
-        org: { ...prev.org },
-        project: { ...prev.project },
-        user: { ...prev.user },
-      };
-      if (value === undefined) delete next[def.scope][def.key];
-      else next[def.scope][def.key] = value;
-      saveOverrides(next);
-      return next;
-    });
+    setOverride(def.key, def.scope, value);
   };
 
   const groups = Array.from(new Set(PRESETS.map((p) => p.group)));
@@ -144,7 +132,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: theme.space.xl }}>
-          <h3 style={{ margin: 0 }}>EUnomia — Settings</h3>
+          <h3 style={{ margin: 0, color: theme.color.text.strong }}>EUnomia — Settings</h3>
           <Button onClick={onClose}>Close</Button>
         </div>
         <p style={{ color: theme.color.text.muted, fontSize: theme.fontSize.md, marginTop: 0 }}>
