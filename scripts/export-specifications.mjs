@@ -36,6 +36,7 @@
 // Usage: node scripts/export-specifications.mjs --input <board.json> --slice-id <id> > specifications.json
 
 import { readFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 
 function parseArgs(argv) {
   const args = { input: null, sliceId: null };
@@ -110,22 +111,30 @@ export function exportSpecifications(board, sliceId) {
 }
 
 // --- CLI wrapper -------------------------------------------------------------
+// Guarded so this module can also be imported (the MCP server reuses
+// exportSpecifications directly) without the CLI block running as a side
+// effect. `isMain` is the standard "was this file run as the entry point"
+// check for ESM.
 
-const args = parseArgs(process.argv.slice(2));
-if (!args.input || !args.sliceId) {
-  console.error("Usage: node export-specifications.mjs --input <board.json> --slice-id <id>");
-  process.exit(1);
+const isMain = import.meta.url === pathToFileURL(process.argv[1] ?? "").href;
+
+if (isMain) {
+  const args = parseArgs(process.argv.slice(2));
+  if (!args.input || !args.sliceId) {
+    console.error("Usage: node export-specifications.mjs --input <board.json> --slice-id <id>");
+    process.exit(1);
+  }
+
+  const board = JSON.parse(readFileSync(args.input, "utf8"));
+
+  let result;
+  try {
+    result = exportSpecifications(board, args.sliceId);
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+
+  for (const w of result.warnings) console.error(`[warn] ${w}`);
+  console.log(JSON.stringify(result, null, 2));
 }
-
-const board = JSON.parse(readFileSync(args.input, "utf8"));
-
-let result;
-try {
-  result = exportSpecifications(board, args.sliceId);
-} catch (err) {
-  console.error(err.message);
-  process.exit(1);
-}
-
-for (const w of result.warnings) console.error(`[warn] ${w}`);
-console.log(JSON.stringify(result, null, 2));
