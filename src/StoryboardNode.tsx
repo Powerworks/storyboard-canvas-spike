@@ -1,6 +1,6 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import { LANES, type LaneId } from "./lanes";
-import { theme } from "./theme";
+import { useTheme } from "./presetContext";
 import { NodeCard } from "./components/NodeCard";
 import { Badge } from "./components/Badge";
 
@@ -23,6 +23,7 @@ export interface StoryboardNodeData {
 
 export function StoryboardNode({ data }: NodeProps) {
   const nodeData = data as unknown as StoryboardNodeData;
+  const theme = useTheme();
   const lane = LANES.find((l) => l.id === nodeData.laneId);
   const hasScenario = Boolean(nodeData.scenario);
   const mapSummary = nodeData.exampleMapSummary;

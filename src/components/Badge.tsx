@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { theme } from "../theme";
+import { useTheme } from "../presetContext";
 
 /** Small colored badge — two shapes: `pill` (count labels like "R1 E2 Q1")
  * and `dot` (the round ✓ scenario marker). Positioned by the caller via
@@ -17,6 +17,7 @@ export function Badge({
   variant?: "pill" | "dot";
   style?: CSSProperties;
 }) {
+  const theme = useTheme();
   return (
     <span
       title={title}

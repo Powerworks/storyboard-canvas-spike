@@ -20,7 +20,7 @@ import { getExampleMapSummary } from "./exampleMapStore";
 import { Badge } from "./components/Badge";
 import { Button } from "./components/Button";
 import { SettingsPanel } from "./components/SettingsPanel";
-import { theme } from "./theme";
+import { useTheme } from "./presetContext";
 
 const CANVAS_WIDTH = 2400;
 
@@ -43,6 +43,7 @@ export default function App() {
   const [openSliceId, setOpenSliceId] = useState<string | null>(null);
   const [showSettings, setShowSettings] = useState(false);
   const slices = listSlices(selectedSpec);
+  const theme = useTheme();
 
   // Recomputed on every render — including whenever openSliceId flips back
   // to null (returning from an Example Map edit) — so badges/counts stay

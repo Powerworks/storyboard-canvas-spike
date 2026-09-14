@@ -1,5 +1,5 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
-import { theme } from "./theme";
+import { useTheme } from "./presetContext";
 import { NodeCard } from "./components/NodeCard";
 
 export type ExampleMapNodeType = "rule" | "example" | "question";
@@ -24,6 +24,7 @@ export interface ExampleMapNodeData {
 
 export function ExampleMapNode({ data }: NodeProps) {
   const nodeData = data as unknown as ExampleMapNodeData;
+  const theme = useTheme();
   const isAnsweredQuestion = nodeData.nodeType === "question" && nodeData.status === "answered";
   const card = theme.color.card[isAnsweredQuestion ? "answeredQuestion" : nodeData.nodeType];
 
